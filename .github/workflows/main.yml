@@ -34,7 +34,7 @@ jobs:
         id: push-to-quay
         uses: redhat-actions/push-to-registry@v2
         with:
-          registry: registry.heroku.com
+          registry: registry.heroku.com/yassir.acaf@gmail.com
           image: poolhubapp
           username: yassir.acaf@gmail.com
           password: ${{ secrets.HEROKU_API_KEY }}
