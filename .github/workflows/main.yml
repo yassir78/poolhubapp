@@ -34,8 +34,8 @@ jobs:
         id: push-to-quay
         uses: redhat-actions/push-to-registry@v2
         with:
-          image: poolhubapp
-          tags: ${{ steps.vars.outputs.sha_short }}
+          tags: v1.0.0
           registry: registry.heroku.com
+          image: poolhubapp
           username: yassir.acaf@gmail.com
           password: ${{ secrets.HEROKU_API_KEY }}
