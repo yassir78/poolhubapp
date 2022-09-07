@@ -39,3 +39,12 @@ jobs:
           git add .
           git commit -m "hey"
           git push heroku master
+      - name: Push To quay.io
+        id: push-to-quay
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ${{ steps.build-image.outputs.image }}
+          tags: ${{ steps.build-image.outputs.tags }}
+          registry: registry.heroku.com/poolhubapp
+          username: yassir.acaf@gmail.com
+          password: ${{ secrets.HEROKU_API_KEY }}
