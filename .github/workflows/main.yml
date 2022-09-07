@@ -31,4 +31,4 @@ jobs:
       #- name: Package application
       #  run: npm run java:jar:prod
       - name: Push To quay.io
-        run: git remote -v
+        run: git clone https://git.heroku.com/poolhubapp.git
