@@ -30,15 +30,6 @@ jobs:
       #  run: npm run ci:frontend:test
       #- name: Package application
       #  run: npm run java:jar:prod
-      - name: Deploy on Heroku
-        run: |
-          # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-          git --version
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
-          git add .
-          git commit -m "hey"
-          git push heroku master
       - name: Push To quay.io
         id: push-to-quay
         uses: redhat-actions/push-to-registry@v2
