@@ -34,7 +34,6 @@ jobs:
         id: push-to-quay
         uses: redhat-actions/push-to-registry@v2
         with:
-          tags: v1.0.0
           registry: registry.heroku.com
           image: poolhubapp
           username: yassir.acaf@gmail.com
