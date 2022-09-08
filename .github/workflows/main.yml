@@ -1,5 +1,10 @@
 name: Application CI
-on: [push, pull_request]
+on:
+  push:
+    branches: [ master ]
+
+  pull_request:
+    branches: [ master,dev ]
 jobs:
   pipeline:
     name: poolhub pipeline
@@ -38,15 +43,15 @@ jobs:
           else
               echo No SONAR_TOKEN, skipping...
           fi
-      - name: Package application
-        run: npm run java:jar:prod
-      - name: Deploy to Heroku
-        #if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: |
-          if [ ! -z "$HEROKU_API_KEY" ]; then
-              ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=heroku/jvm -Dheroku.appName=poolhubapp
-          else
-              echo No HEROKU_API_KEY, skipping...
-          fi
+      #- name: Package application
+      #  run: npm run java:jar:prod
+      #- name: Deploy to Heroku
+      #  if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      #  env:
+      #    HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      #  run: |
+      #    if [ ! -z "$HEROKU_API_KEY" ]; then
+      #        ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=heroku/jvm -Dheroku.appName=poolhubapp
+      #    else
+      #        echo No HEROKU_API_KEY, skipping...
+      #    fi
