@@ -1,0 +1,66 @@
+
+enum Shape {
+    RECTANGULAR,
+    CIRCULAR,
+    HEXAGON,
+    OCTAGON,
+    OVAL
+}
+enum Category {
+	INGROUND,
+    SEMI_INGROUND,
+    ONGROUND
+}
+enum Color {
+	BLUE,
+    BLACK,
+    WHITE,
+    GRAY,
+    WOOD,
+    STEEL,
+    CONCRETE,
+    COMPOSITE
+}
+enum Material {
+	WOOD,
+    BLACK,
+    COMPOSITE,
+    STEEL,
+    CONCRETE,
+    PVC,
+    TUBULAR,
+    GRAPHITE
+}
+enum State {
+    SHIPPED, PROCESSING, COMPLETED
+}
+
+entity Pool {
+        ref String required
+        label String required
+        brand String
+        description String
+        image String
+        price BigDecimal
+        stock Integer
+        active Boolean
+        volume Double
+        width Double
+        length Double
+        height Double
+        shape Shape
+        material Material
+        color Color
+        category Category
+}
+entity Order {
+        ref String required
+        sum BigDecimal
+        date Instant
+        state State
+}
+
+relationship OneToMany {
+    Pool{orders} to Order
+}
+

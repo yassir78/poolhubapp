@@ -1,0 +1,12 @@
+{
+  "poolhubApp": {
+    "Shape": {
+      "null": "",
+      "RECTANGULAR": "RECTANGULAR",
+      "CIRCULAR": "CIRCULAR",
+      "HEXAGON": "HEXAGON",
+      "OCTAGON": "OCTAGON",
+      "OVAL": "OVAL"
+    }
+  }
+}

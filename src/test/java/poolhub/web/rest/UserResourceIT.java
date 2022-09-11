@@ -25,6 +25,7 @@ import poolhub.repository.UserRepository;
 import poolhub.security.AuthoritiesConstants;
 import poolhub.service.dto.AdminUserDTO;
 import poolhub.service.mapper.UserMapper;
+import poolhub.web.rest.user.UserResource;
 import poolhub.web.rest.vm.ManagedUserVM;
 
 /**

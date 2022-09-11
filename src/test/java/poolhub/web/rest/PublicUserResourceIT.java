@@ -18,6 +18,7 @@ import poolhub.IntegrationTest;
 import poolhub.domain.User;
 import poolhub.repository.UserRepository;
 import poolhub.security.AuthoritiesConstants;
+import poolhub.web.rest.user.UserResource;
 
 /**
  * Integration tests for the {@link UserResource} REST controller.

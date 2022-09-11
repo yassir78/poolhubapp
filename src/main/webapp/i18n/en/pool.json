@@ -1,0 +1,40 @@
+{
+  "poolhubApp": {
+    "pool": {
+      "home": {
+        "title": "Pools",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Pool",
+        "createOrEditLabel": "Create or edit a Pool",
+        "notFound": "No Pools found"
+      },
+      "created": "A new Pool is created with identifier {{ param }}",
+      "updated": "A Pool is updated with identifier {{ param }}",
+      "deleted": "A Pool is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Pool {{ id }}?"
+      },
+      "detail": {
+        "title": "Pool"
+      },
+      "id": "ID",
+      "ref": "Ref",
+      "label": "Label",
+      "brand": "Brand",
+      "description": "Description",
+      "image": "Image",
+      "price": "Price",
+      "stock": "Stock",
+      "active": "Active",
+      "volume": "Volume",
+      "width": "Width",
+      "length": "Length",
+      "height": "Height",
+      "shape": "Shape",
+      "material": "Material",
+      "color": "Color",
+      "category": "Category",
+      "orders": "Orders"
+    }
+  }
+}

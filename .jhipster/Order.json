@@ -1,0 +1,41 @@
+{
+  "applications": "*",
+  "changelogDate": "20220911090953",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "jhi_order",
+  "fields": [
+    {
+      "fieldName": "ref",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sum",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "State",
+      "fieldValues": "SHIPPED,PROCESSING,COMPLETED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Order",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "pool",
+      "otherEntityRelationshipName": "orders",
+      "relationshipName": "pool",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}
