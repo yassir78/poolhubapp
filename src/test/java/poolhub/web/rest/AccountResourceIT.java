@@ -25,7 +25,7 @@ import poolhub.security.AuthoritiesConstants;
 import poolhub.service.UserService;
 import poolhub.service.dto.AdminUserDTO;
 import poolhub.service.dto.PasswordChangeDTO;
-import poolhub.service.dto.UserDTO;
+import poolhub.web.rest.user.AccountResource;
 import poolhub.web.rest.vm.KeyAndPasswordVM;
 import poolhub.web.rest.vm.ManagedUserVM;
 

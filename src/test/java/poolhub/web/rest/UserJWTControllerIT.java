@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import poolhub.IntegrationTest;
 import poolhub.domain.User;
 import poolhub.repository.UserRepository;
+import poolhub.web.rest.user.UserJWTController;
 import poolhub.web.rest.vm.LoginVM;
 
 /**

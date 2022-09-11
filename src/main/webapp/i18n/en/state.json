@@ -1,0 +1,10 @@
+{
+  "poolhubApp": {
+    "State": {
+      "null": "",
+      "SHIPPED": "SHIPPED",
+      "PROCESSING": "PROCESSING",
+      "COMPLETED": "COMPLETED"
+    }
+  }
+}

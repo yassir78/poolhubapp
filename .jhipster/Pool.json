@@ -1,0 +1,93 @@
+{
+  "applications": "*",
+  "changelogDate": "20220911090952",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "pool",
+  "fields": [
+    {
+      "fieldName": "ref",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "label",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "brand",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "stock",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "volume",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "width",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "length",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "height",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "shape",
+      "fieldType": "Shape",
+      "fieldValues": "RECTANGULAR,CIRCULAR,HEXAGON,OCTAGON,OVAL"
+    },
+    {
+      "fieldName": "material",
+      "fieldType": "Material",
+      "fieldValues": "WOOD,BLACK,COMPOSITE,STEEL,CONCRETE,PVC,TUBULAR,GRAPHITE"
+    },
+    {
+      "fieldName": "color",
+      "fieldType": "Color",
+      "fieldValues": "BLUE,BLACK,WHITE,GRAY,WOOD,STEEL,CONCRETE,COMPOSITE"
+    },
+    {
+      "fieldName": "category",
+      "fieldType": "Category",
+      "fieldValues": "INGROUND,SEMI_INGROUND,ONGROUND"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Pool",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "pool",
+      "relationshipName": "orders",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}
