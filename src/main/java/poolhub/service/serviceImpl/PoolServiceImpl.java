@@ -45,14 +45,6 @@ public class PoolServiceImpl implements PoolService {
         query += JpqlUtils.addCriteria("volume", poolSearchDto.getVolumeMin(), poolSearchDto.getVolumeMax());
         query += JpqlUtils.addCriteria("label", poolSearchDto.getLabel(), "LIKE");
         logger.info("Find pools by search criteria service");
-        logger.info("the query is: " + query);
-        entityManager
-            .createQuery(query, Pool.class)
-            .getResultList()
-            .forEach(pool -> {
-                logger.info("pool: " + pool.toString());
-            });
-
         return new PageImpl<>(
             entityManager
                 .createQuery(query, Pool.class)
