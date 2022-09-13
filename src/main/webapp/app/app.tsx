@@ -10,7 +10,7 @@ export const App = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen pt-16">
+      <div className="min-h-screen mt-12	bg-octonary px-24 ">
         <Routes>
           <Route path="/" element={<MenuPage />} />
         </Routes>
@@ -20,4 +20,5 @@ export const App = () => {
   );
 };
 
+// @ts-ignore
 export default App;
