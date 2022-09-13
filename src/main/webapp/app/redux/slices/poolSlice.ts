@@ -20,12 +20,6 @@ export const poolSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = poolSlice.actions;
 
-export const incrementAsync = amount => dispatch => {
-  setTimeout(() => {
-    dispatch(incrementByAmount(amount));
-  }, 1000);
-};
-
 export const selectCount = state => {
   return state.pool.value;
 };
