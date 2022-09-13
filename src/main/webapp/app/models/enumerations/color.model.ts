@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum Color {
   BLUE = 'BLUE',
 
