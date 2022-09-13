@@ -1,13 +1,9 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { decrement, increment, selectCount } from 'app/redux/slices/poolSlice';
 
 const MenuContainer = () => {
-  const count = useSelector(selectCount);
-  const dispatch = useDispatch();
   return (
     <>
-      <div>dzadaz count value {count}</div>
+      <div>dzadaz count value</div>
     </>
   );
 };

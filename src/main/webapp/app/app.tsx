@@ -6,8 +6,6 @@ import { Route, Routes } from 'react-router-dom';
 import MenuPage from 'app/pages/MenuPage';
 import Footer from 'app/components/Footer';
 
-const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
-
 export const App = () => {
   return (
     <>
