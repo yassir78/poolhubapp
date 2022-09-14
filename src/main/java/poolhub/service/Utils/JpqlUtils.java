@@ -1,5 +1,8 @@
 package poolhub.service.Utils;
 
+import java.util.List;
+import java.util.Objects;
+
 public class JpqlUtils {
 
     public static String init(Class<?> clazz) {
@@ -10,6 +13,18 @@ public class JpqlUtils {
         String query = addCriteria(key, valueMin, ">=");
         query += addCriteria(key, valueMax, "<=");
         return query;
+    }
+
+    public static String addCriteria(String key, List<Object> values) {
+        String query = "AND ( ";
+        values
+            .stream()
+            .filter(Objects::nonNull)
+            .forEach(value -> {
+                //query += "item."+key+" LIKE "+ " '%" + value + "%'";
+            });
+
+        return "";
     }
 
     public static String addCriteria(String key, Object value, String operator) {

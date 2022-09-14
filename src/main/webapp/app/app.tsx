@@ -5,12 +5,16 @@ import Navbar from 'app/components/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import MenuPage from 'app/pages/MenuPage';
 import Footer from 'app/components/Footer';
+import setupAxiosInterceptors from 'app/helpers/services/axios-interceptor';
 
+/*const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
+setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));*/
+setupAxiosInterceptors();
 export const App = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen pt-16">
+      <div className="min-h-screen mt-12	bg-octonary px-24 ">
         <Routes>
           <Route path="/" element={<MenuPage />} />
         </Routes>
@@ -20,4 +24,5 @@ export const App = () => {
   );
 };
 
+// @ts-ignore
 export default App;
