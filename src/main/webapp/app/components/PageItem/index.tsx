@@ -5,7 +5,7 @@ const PageItem = ({ page, selected, changePage }) => {
     <a
       onClick={event => changePage(event)}
       className={`${
-        selected ? 'bg-primary text-octonary' : ''
+        selected ? 'bg-primary text-white' : ''
       }  relative hidden items-center bg-white px-4 py-2 text-sm font-md text-textGray  focus:z-20 md:inline-flex hover:cursor-pointer`}
     >
       {page + 1}
