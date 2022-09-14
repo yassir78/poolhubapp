@@ -6,3 +6,44 @@ export type FilterParamsType = {
   volumeMin: number;
   volumeMax: number;
 };
+export type PaginationType = {
+  empty?: number;
+  first?: boolean;
+  last?: false;
+  number?: number;
+  numberOfElements?: number;
+  pageable?: {
+    offset?: number;
+    pageNumber?: number;
+    pageSize?: number;
+    paged?: boolean;
+  };
+  totalElements: number;
+  totalPages: number;
+};
+
+export type PoolInitialState = {
+  loading: boolean;
+  errorMessage: string;
+  list: PoolType[];
+  entity: any;
+  pagination: PaginationType;
+};
+
+export type PoolType = {
+  label: string;
+  brand: string;
+  description: string;
+  image: string;
+  price: number;
+  stock: number;
+  active: boolean;
+  volume: number;
+  width: string;
+  length: string;
+  height: string;
+  shape: string;
+  material: string;
+  color: string;
+  category: string;
+};
