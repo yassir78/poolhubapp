@@ -24,7 +24,10 @@ const PoolCard: FC<PoolCardProps> = ({ pool }) => {
     <div className="bg-white rounded-lg border border-gray-border pb-6 hover:cursor-pointer hover:opacity-50">
       <div className="space-y-3">
         <div className="aspect-w-4 aspect-h-2 relative">
-          <img className="object-cover rounded-t-lg w-full" src={pool.image} />
+          <img
+            className="object-cover rounded-t-lg w-full"
+            src="https://firebasestorage.googleapis.com/v0/b/poolhubapp-859cf.appspot.com/o/pool_test_images%2Fpiscine-bestway-power-steel-rectangulaire-6-40-x2-74-x1-32-groupe-de-filtration.webp?alt=media&token=a1febe78-a883-45e4-af42-c455ac0234f6"
+          />
         </div>
 
         <div className="px-6">

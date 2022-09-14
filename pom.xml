@@ -897,6 +897,11 @@
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
+                                <configuration>
+                                    <arguments>
+                                       install --force
+                                    </arguments>
+                                </configuration>
                             </execution>
                             <execution>
                                 <id>webapp build dev</id>
@@ -1174,6 +1179,7 @@
                                 <configuration>
                                     <nodeVersion>${node.version}</nodeVersion>
                                     <npmVersion>${npm.version}</npmVersion>
+
                                 </configuration>
                             </execution>
                             <execution>
@@ -1181,6 +1187,7 @@
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
+
                             </execution>
                             <execution>
                                 <id>webapp build test</id>
@@ -1311,6 +1318,7 @@
                                                     <goal>install-node-and-npm</goal>
                                                     <goal>npm</goal>
                                                 </goals>
+
                                             </pluginExecutionFilter>
                                             <action>
                                                 <ignore/>
