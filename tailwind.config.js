@@ -15,6 +15,7 @@ module.exports = {
       octonary: '#EEEEEE',
       white: '#FFFFFF',
       'gray-100': '#D3D3D3',
+      textGray: '#989898',
       transparent: 'transparent',
       'gray-border': '#CFD2CF',
       extend: {
@@ -26,5 +27,5 @@ module.exports = {
 
     extend: {},
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio'), require('@tailwindcss/custom-forms')],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/aspect-ratio'), require('@tailwindcss/custom-forms'), require('@tailwindcss/line-clamp'),],
 };
