@@ -12,7 +12,7 @@ const commonConfig = require('./webpack.common.js');
 const ENV = 'development';
 
 module.exports = async options =>
-  webpackMerge(await commonConfig({ env: ENV }), {
+  webpackMerge(await commonConfig({env: ENV}), {
     devtool: 'cheap-module-source-map', // https://reactjs.org/docs/cross-origin-errors.html
     mode: ENV,
     entry: ['./src/main/webapp/app/index'],
@@ -36,7 +36,7 @@ module.exports = async options =>
             },
             {
               loader: 'sass-loader',
-              options: { implementation: sass },
+              options: {implementation: sass},
             },
           ],
         },
@@ -64,8 +64,9 @@ module.exports = async options =>
       process.env.JHI_DISABLE_WEBPACK_LOGS
         ? null
         : new SimpleProgressWebpackPlugin({
-            format: options.stats === 'minimal' ? 'compact' : 'expanded',
-          }),
+          format: options.stats === 'minimal' ? 'compact' : 'expanded',
+        }),
+      /*
       new BrowserSyncPlugin(
         {
           https: options.tls,
@@ -83,18 +84,18 @@ module.exports = async options =>
               heartbeatTimeout: 60000,
             },
           },
-          /*
-      ,ghostMode: { // uncomment this part to disable BrowserSync ghostMode; https://github.com/jhipster/generator-jhipster/issues/11116
-        clicks: false,
-        location: false,
-        forms: false,
-        scroll: false
-      } */
+          ghostMode: { // uncomment this part to disable BrowserSync ghostMode; https://github.com/jhipster/generator-jhipster/issues/11116
+            clicks: false,
+            location: false,
+            forms: false,
+            scroll: false
+          },
         },
         {
           reload: false,
         }
       ),
+      */
       new WebpackNotifierPlugin({
         title: 'Poolhub',
         contentImage: path.join(__dirname, 'logo-jhipster.png'),
