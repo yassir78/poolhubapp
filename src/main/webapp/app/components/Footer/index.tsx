@@ -1,7 +1,10 @@
 import React from 'react';
+import {PoolhubLogo} from "app/helpers/icons/logo";
 
 const Footer = () => {
-  return <div>Footer Component</div>;
+  return <div className="flex justify-center items-center bg-white w-full py-4 px-2 ring-1">
+    <PoolhubLogo/>
+  </div>;
 };
 
 export default Footer;

@@ -16,7 +16,9 @@ export interface Pool {
   volume?: number | null;
   width?: number | null;
   length?: number | null;
-  height?: number | null;
+  depth?: number | null;
+  warranty?: number | null;
+  nbStock?: number | null;
   shape?: Shape | null;
   material?: Material | null;
   color?: Color | null;

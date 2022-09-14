@@ -73,6 +73,9 @@ public class Pool implements Serializable {
     @Column(name = "length")
     private Double length;
 
+    @Column(name = "warranty")
+    private int warranty;
+
     @Column(name = "height")
     private Double height;
 
