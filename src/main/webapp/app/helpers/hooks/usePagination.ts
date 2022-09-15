@@ -1,20 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getPools, moveToPage } from 'app/redux/slices/poolSlice';
+import { getPools, getPoolsBySearch, moveToPage } from 'app/redux/slices/poolSlice';
 
 export type Pagination = {
   id: number;
   current: boolean;
   ellipsis: boolean;
 };
-const usePagination = ({ pages, currentPage }) => {
+const usePagination = ({ pages, currentPage, isSearch }) => {
   const pagination: Array<Pagination> = [];
   const dispatch = useDispatch();
-  useEffect(() => {
-    // TODO document why this arrow function is empty
-    console.log(pages);
-    console.log(currentPage);
-  }, [currentPage]);
+  useEffect(() => {}, [currentPage]);
   let ellipsisLeft: boolean = false;
   let ellipsisRight: boolean = false;
   for (let i = 0; i < pages; i++) {
@@ -36,7 +32,8 @@ const usePagination = ({ pages, currentPage }) => {
     event.preventDefault();
     dispatch(moveToPage(page));
     // @ts-ignore
-    dispatch(getPools());
+    isSearch ? dispatch(getPoolsBySearch()) : dispatch(getPools());
+    // @ts-ignore
   };
 
   const goToPrevPage = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
@@ -44,7 +41,7 @@ const usePagination = ({ pages, currentPage }) => {
     if (currentPage > 0) {
       dispatch(moveToPage(currentPage - 1));
       // @ts-ignore
-      dispatch(getPools());
+      isSearch ? dispatch(getPoolsBySearch()) : dispatch(getPools());
     }
   };
 
@@ -53,7 +50,7 @@ const usePagination = ({ pages, currentPage }) => {
     if (!isLast) {
       dispatch(moveToPage(currentPage + 1));
       // @ts-ignore
-      dispatch(getPools());
+      isSearch ? dispatch(getPoolsBySearch()) : dispatch(getPools());
     }
   };
   return {

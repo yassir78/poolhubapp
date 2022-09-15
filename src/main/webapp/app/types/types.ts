@@ -24,12 +24,23 @@ export type PaginationType = {
 
 export type PoolInitialState = {
   loading: boolean;
+  isPoolSearch: boolean;
   errorMessage: string;
+  poolSearch: PoolSearchType;
   list: PoolType[];
   entity: any;
   pagination: PaginationType;
 };
 
+export type PoolSearchType = {
+  //forms: Array<string>;
+  //categories: Array<string>;
+  label: string;
+  priceMin: number;
+  priceMax: number;
+  volumeMin: number;
+  volumeMax: number;
+};
 export type PoolType = {
   label: string;
   brand: string;

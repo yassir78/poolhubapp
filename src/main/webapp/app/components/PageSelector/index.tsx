@@ -35,9 +35,9 @@ const PageSelector = ({ pagination, prevPage, changePage, nextPage, isLast, isFi
               return (
                 <a
                   onClick={event => changePage(event)}
-                  className={
-                    'relative hidden items-center bg-white px-4 py-2 text-sm font-md text-textGray hover:bg-octonary focus:z-20 md:inline-flex'
-                  }
+                  className={`relative inline-flex items-center bg-white px-2 py-2 text-sm font-medium text-tertiary ${
+                    isLast ? 'bg-septenary cursor-not-allowed' : 'bg-white hover:bg-octonary'
+                  }   focus:z-20`}
                 >
                   ...
                 </a>

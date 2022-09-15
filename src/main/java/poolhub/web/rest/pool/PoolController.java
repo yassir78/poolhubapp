@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,13 +31,17 @@ public class PoolController {
         return new ResponseEntity<>(poolService.getAllPools(page, size), HttpStatus.OK);
     }
 
-    @GetMapping("/search/page/{page}/size/{size}")
+    @PostMapping("/search/page/{page}/size/{size}")
     public ResponseEntity<Page<PoolListResponseDto>> findBySearchCriteria(
         @PathVariable Integer page,
         @PathVariable Integer size,
         @RequestBody PoolSearchDto poolSearchDto
     ) {
         logger.info("Find pools by search criteria");
+        logger.info("priceMin: " + poolSearchDto.getPriceMin());
+        logger.info("priceMax: " + poolSearchDto.getPriceMax());
+        logger.info("volumeMin: " + poolSearchDto.getVolumeMin());
+        logger.info("volumeMax: " + poolSearchDto.getVolumeMax());
         return new ResponseEntity<>(poolService.findBySearchCriteria(page, size, poolSearchDto), HttpStatus.OK);
     }
 }
