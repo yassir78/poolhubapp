@@ -1,10 +1,10 @@
 name: Application CI
 on:
   push:
-    branches: [ master ]
+    branches: [ dev ]
 
-  pull_request:
-    branches: [ master,dev ]
+  #pull_request:
+    #branches: [ master,dev ]
 jobs:
   pipeline:
     name: poolhub pipeline
