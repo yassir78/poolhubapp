@@ -24,7 +24,7 @@ const BackButton:FC<PropsBackButton> = (props) => {
 
   return (
     <Link to={props.routeTo}
-          className="absolute cursor-pointer hover:scale-110 transition-all ease-in active:opacity-50 -left-20 top-0 z-20">{backArrowSvg()}</Link>
+          className="absolute cursor-pointer hover:scale-110 transition-all ease-in active:opacity-50 -left-20 top-10 z-20">{backArrowSvg()}</Link>
 
   );
 };

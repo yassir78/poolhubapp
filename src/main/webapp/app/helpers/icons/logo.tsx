@@ -1,8 +1,12 @@
 import React, {FC} from "react"
 
-export const PoolhubLogo:FC = () => {
+export type PoolhubLogoProps = {
+  tailwClasses?: string
+}
+
+export const PoolhubLogo:FC<PoolhubLogoProps> = ({tailwClasses}) => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="200" zoomAndPan="magnify"
+    <svg className={tailwClasses ? `${tailwClasses}` : ""} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="200" zoomAndPan="magnify"
          viewBox="0 0 150 57.749997" height="77" preserveAspectRatio="xMidYMid meet" version="1.0">
       <defs>
         <g/>
