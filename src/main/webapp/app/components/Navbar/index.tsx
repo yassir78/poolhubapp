@@ -2,6 +2,7 @@ import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faScaleBalanced} from '@fortawesome/free-solid-svg-icons';
 import {PoolhubLogo} from "app/helpers/icons/logo";
+import {Link} from "react-router-dom";
 
 const Navbar = () => {
 
@@ -20,7 +21,7 @@ const Navbar = () => {
           IS_CONNECTED ? (
             <img className="rounded-full w-10 h-10 cursor-pointer" src={PROFILE_IMAGE} alt="User Avatar"/>
           ) : (
-            <div className="px-3 py-1 bg-primary rounded text-octonary cursor-pointer select-none hover:scale-105 transition-all ease-in active:opacity-75">Se connecter</div>
+            <Link to={"/login"} className="px-3 py-1 bg-primary rounded text-octonary cursor-pointer select-none hover:scale-105 transition-all ease-in active:opacity-75">Se connecter</Link>
           )
         }
         <div className="relative w-10 h-10">

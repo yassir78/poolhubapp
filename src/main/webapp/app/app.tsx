@@ -8,6 +8,7 @@ import Footer from 'app/components/Footer';
 import setupAxiosInterceptors from 'app/helpers/services/axios-interceptor';
 import PoolDetailsPage from 'app/pages/PoolDetailsPage';
 import LoginPage from "app/pages/LoginPage";
+import RegisterPage from "app/pages/RegisterPage";
 
 /*const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
 setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));*/
@@ -24,6 +25,7 @@ export const App = () => {
           <Route path="/" element={<MenuPage />} />
           <Route path="/pool" element={<PoolDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<RegisterPage />} />
         </Routes>
       {location.pathname !== '/login' && location.pathname !== '/signup' && <Footer/>}
     </>

@@ -3,6 +3,7 @@ import {PoolhubLogo} from "app/helpers/icons/logo";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import {LoginSvg} from "app/containers/LoginContainer/loginSvg";
+import {Link} from "react-router-dom";
 
 const LoginContainer = () => {
 
@@ -61,15 +62,15 @@ const LoginContainer = () => {
           </div>
           <div className="flex items-center justify-end">
 
-            <a href="#" className="text-sm pb-4 font-medium text-textGray hover:underline">Mot de pass oublié</a>
+            <a className="text-sm pb-4 font-medium text-textGray select-none cursor-pointer hover:underline">Mot de pass oublié</a>
           </div>
           <button type="submit"
                   className="w-full text-white bg-primary text-lg font-bold focus:outline-none font-medium rounded-lg text-sm px-5 py-3 focus:opacity-75 text-center hover:scale-105 transition-all ease-in ">Se
             connecter
           </button>
           <p className="pt-2 text-base font-light text-textGray flex justify-center">
-            Pas encore inscrit(e) ? <a href="#"
-                                       className="font-medium pl-2 text-primary hover:underline font-bold">S'inscrire</a>
+            Pas encore inscrit(e) ? <Link to={"/signup"}
+                                       className="font-medium pl-2 text-primary hover:underline font-bold">S'inscrire</Link>
           </p>
         </form>
 
