@@ -1,5 +1,14 @@
 node_modules/
 src/main/docker/
+src/main/webapp/app/components/
+src/main/webapp/app/containers/
+src/main/webapp/app/redux/
+src/main/webapp/app/types/
+src/main/webapp/app/pages/
+src/main/webapp/app/models/
+src/main/webapp/app/index.tsx
+src/main/webapp/app/typings.d.ts
+src/main/webapp/app/helpers/
 jest.conf.js
 webpack/
 target/
