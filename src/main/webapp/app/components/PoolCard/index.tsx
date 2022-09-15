@@ -13,9 +13,10 @@ const PoolCard: FC<PoolCardProps> = ({ pool }) => {
     return (
       <div className="flex flex-row items-center" title={title}>
         <div className="mx-2">
-          <FontAwesomeIcon className="fill-tertiary" icon={icon} />
+          ;
+          <FontAwesomeIcon className="fill-tertiary text-gray-400" icon={icon} />
         </div>
-        <span className="text-tertiary font-thin text-sm truncate">{detail}</span>
+        <span className="text-tertiary font-thin text-sm truncate text-blue-600 lowercase">{detail}</span>
       </div>
     );
   };

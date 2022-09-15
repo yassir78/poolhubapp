@@ -33,8 +33,8 @@ export type PoolInitialState = {
 };
 
 export type PoolSearchType = {
-  //forms: Array<string>;
-  //categories: Array<string>;
+  forms: Array<string>;
+  categories: Array<string>;
   label: string;
   priceMin: number;
   priceMax: number;

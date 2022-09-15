@@ -1,6 +1,7 @@
 package poolhub.service.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
 import poolhub.domain.enumeration.Category;
 import poolhub.domain.enumeration.Color;
 import poolhub.domain.enumeration.Material;
@@ -11,6 +12,8 @@ public class PoolSearchDto {
     private String label;
     private BigDecimal priceMin;
     private BigDecimal priceMax;
+    private List<String> forms;
+    private List<String> categories;
     private Double volumeMin;
     private Double volumeMax;
     private Double widthMin;
@@ -142,5 +145,21 @@ public class PoolSearchDto {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public List<String> getForms() {
+        return forms;
+    }
+
+    public void setForms(List<String> forms) {
+        this.forms = forms;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 }

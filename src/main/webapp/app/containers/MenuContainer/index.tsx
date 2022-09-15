@@ -21,6 +21,7 @@ import {
 } from 'app/redux/slices/poolSlice';
 import Skeleton from 'app/components/Skeleton';
 import usePagination from 'app/helpers/hooks/usePagination';
+import { categoriesNaming, formsNaming } from 'app/helpers/constants/forms';
 
 const MenuContainer = () => {
   const pools = useSelector(selectPoolsList);
@@ -58,7 +59,16 @@ const MenuContainer = () => {
 
   const handleFilters = (filters: Array<string> | number, category: string): void => {
     const newFilters: any = filterParams;
-    newFilters[category] = filters;
+    let newFiltersArray: Array<string> = [];
+    if (category === 'forms') {
+      // @ts-ignore
+      newFiltersArray = filters.map(filter => formsNaming[filter]);
+    }
+    if (category === 'categories') {
+      // @ts-ignore
+      newFiltersArray = filters.map(filter => categoriesNaming[filter]);
+    }
+    newFiltersArray.length === 0 ? (newFilters[category] = filters) : (newFilters[category] = newFiltersArray);
     setFilterParams(newFilters);
     // redux call
     dispatch(setPoolSearch(newFilters));

@@ -1,5 +1,6 @@
 package poolhub.web.rest.pool;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,12 @@ public class PoolController {
         logger.info("priceMax: " + poolSearchDto.getPriceMax());
         logger.info("volumeMin: " + poolSearchDto.getVolumeMin());
         logger.info("volumeMax: " + poolSearchDto.getVolumeMax());
+        if (poolSearchDto.getForms() != null) {
+            logger.info("forms: " + poolSearchDto.getForms().toString());
+        } else {
+            logger.info("forms: null");
+        }
+
         return new ResponseEntity<>(poolService.findBySearchCriteria(page, size, poolSearchDto), HttpStatus.OK);
     }
 }
