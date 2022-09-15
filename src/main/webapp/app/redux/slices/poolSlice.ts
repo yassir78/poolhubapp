@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejected } fro
 import { defaultValue } from 'app/models/pool.model';
 import axios from 'axios';
 import { PoolInitialState } from 'app/types/types';
+import createDebouncedAsyncThunk from 'app/redux/utils/createDebouncedAsyncThunk';
 
 const apiUrl = 'api/pool';
 
@@ -43,7 +44,6 @@ export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload
   const requestUrl = `${apiUrl}/page/${state.pool.pagination.pageable.pageNumber}/size/6`;
   return axios.get(requestUrl);
 });
-
 export const getPoolsBySearch = createAsyncThunk('pools/fetch_pool_list_by_search', async (payload, { getState }) => {
   const state = getState();
   // @ts-ignore

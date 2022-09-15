@@ -47,7 +47,14 @@ public class PoolServiceImpl implements PoolService {
         logger.info("Find pools by search criteria service");
         logger.info("query: " + query);
         return new PageImpl<>(
-            entityManager.createQuery(query, Pool.class).getResultList().stream().map(PoolMapper::mapToListResponse).toList()
+            entityManager
+                .createQuery(query, Pool.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList()
+                .stream()
+                .map(PoolMapper::mapToListResponse)
+                .toList()
         );
     }
 }

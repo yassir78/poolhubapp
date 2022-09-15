@@ -1,7 +1,19 @@
 import React, { useEffect, useRef } from 'react';
+import { DebounceInput } from 'react-debounce-input';
 
 const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, max, step, priceCap, handleFilters, field }) => {
   const progressRef = useRef(null);
+  const debounce = func => {
+    let timer;
+    return function (...args) {
+      const context = this;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        func.apply(context, args);
+      }, 500);
+    };
+  };
 
   const handleMin = e => {
     if (maxValue - minValue >= priceCap && maxValue <= max) {
@@ -47,20 +59,22 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
         </div>
 
         <div className="range-input relative  ">
-          <input
+          <DebounceInput
             onChange={handleMin}
             type="range"
             min={min}
+            debounceTimeout={300}
             step={step}
             max={max}
             value={minValue}
             className="range-min absolute w-full  -top-1  h-1   bg-gray-100  appearance-none pointer-events-none"
           />
 
-          <input
+          <DebounceInput
             onChange={handleMax}
             type="range"
             min={min}
+            debounceTimeout={300}
             step={step}
             max={max}
             value={maxValue}
