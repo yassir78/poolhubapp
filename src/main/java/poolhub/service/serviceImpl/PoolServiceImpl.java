@@ -70,44 +70,5 @@ public class PoolServiceImpl implements PoolService {
         );
     }
 
-    @Override
-    public String uploadToFirebase(MultipartFile multipartFile) throws IOException {
-        String objectName = generateFileName(multipartFile);
 
-        FileInputStream serviceAccount = new FileInputStream(
-            "src/main/resources/config/firebase/poolhubapp-859cf-firebase-adminsdk-730ve-e03928dc77.json"
-        );
-        File file = convertMultiPartToFile(multipartFile);
-        Path filePath = file.toPath();
-
-        Storage storage = StorageOptions
-            .newBuilder()
-            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-            .setProjectId("poolhubapp-859cf")
-            .build()
-            .getService();
-        BlobId blobId = BlobId.of("poolhubapp-859cf.appspot.com", objectName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(multipartFile.getContentType()).build();
-
-        storage.create(blobInfo, Files.readAllBytes(filePath));
-
-        file.delete();
-
-        return String.format(
-            "https://firebasestorage.googleapis.com/v0/b/poolhubapp-859cf.appspot.com/o/%s?alt=media",
-            URLEncoder.encode(objectName, StandardCharsets.UTF_8)
-        );
-    }
-
-    private File convertMultiPartToFile(MultipartFile file) throws IOException {
-        File convertedFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
-        FileOutputStream fos = new FileOutputStream(convertedFile);
-        fos.write(file.getBytes());
-        fos.close();
-        return convertedFile;
-    }
-
-    private String generateFileName(MultipartFile multiPart) {
-        return "uploaded_images/" + new Date().getTime() + "-" + Objects.requireNonNull(multiPart.getOriginalFilename()).replace(" ", "_");
-    }
 }

@@ -12,6 +12,4 @@ public interface PoolService {
     Page<PoolListResponseDto> getAllPools(Integer page, Integer size);
 
     Page<PoolListResponseDto> findBySearchCriteria(Integer page, Integer size, PoolSearchDto poolSearchDto);
-
-    String uploadToFirebase(MultipartFile multipartFile) throws IOException;
 }

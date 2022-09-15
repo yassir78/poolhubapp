@@ -41,15 +41,4 @@ public class PoolController {
         logger.info("Find pools by search criteria");
         return new ResponseEntity<>(poolService.findBySearchCriteria(page, size, poolSearchDto), HttpStatus.OK);
     }
-
-    @GetMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestBody MultipartFile multipartFile) {
-        ResponseEntity mr;
-        try {
-            mr = new ResponseEntity<>(poolService.uploadToFirebase(multipartFile), HttpStatus.CREATED);
-        } catch (IOException e) {
-            return new ResponseEntity<>("exception raised : \n" + e.getMessage(), HttpStatus.CREATED);
-        }
-        return mr;
-    }
 }
