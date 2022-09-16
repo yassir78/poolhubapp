@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectPoolsSearchOptions } from 'app/redux/slices/poolSlice';
+import { categoriesNamingEnToFr, formsNamingEnToFr } from 'app/helpers/constants/forms';
 
 type PropsType = {
   handleFilters: (filters: Array<string>) => void;
   list: Array<{ name: string }>;
 };
-const FilterItems = ({ handleFilters, list }) => {
-  const [checked, setChecked] = useState<Array<string>>([]);
+const FilterItems = ({ handleFilters, list, field }) => {
+  const poolOptions = useSelector(selectPoolsSearchOptions);
+  const [checked, setChecked] = useState<Array<string>>(
+    field == 'forms'
+      ? poolOptions[field].map(pool => formsNamingEnToFr[pool])
+      : poolOptions[field].map(pool => categoriesNamingEnToFr[pool])
+  );
 
   const handleToggle = (value: string): void => {
     const currentIndex: number = checked.indexOf(value);
@@ -19,7 +27,6 @@ const FilterItems = ({ handleFilters, list }) => {
     setChecked(newChecked);
     handleFilters(newChecked);
   };
-
   return (
     list &&
     list.map((value: { label: string }, index: number) => (

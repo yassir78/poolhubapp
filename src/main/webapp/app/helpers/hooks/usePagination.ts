@@ -31,6 +31,7 @@ const usePagination = ({ pages, currentPage, isSearch }) => {
   const changePage = (page: number, event: React.MouseEvent<HTMLAnchorElement, MouseEvent>): void => {
     event.preventDefault();
     dispatch(moveToPage(page));
+    console.log('isSearch', isSearch);
     // @ts-ignore
     isSearch ? dispatch(getPoolsBySearch()) : dispatch(getPools());
     // @ts-ignore

@@ -30,11 +30,12 @@ export type PoolInitialState = {
   list: PoolType[];
   entity: any;
   pagination: PaginationType;
+  pool: PoolType;
 };
 
 export type PoolSearchType = {
-  //forms: Array<string>;
-  //categories: Array<string>;
+  forms: Array<string>;
+  categories: Array<string>;
   label: string;
   priceMin: number;
   priceMax: number;

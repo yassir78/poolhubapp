@@ -21,6 +21,7 @@ import {
 } from 'app/redux/slices/poolSlice';
 import Skeleton from 'app/components/Skeleton';
 import usePagination from 'app/helpers/hooks/usePagination';
+import { categoriesNamingFrToEn, formsNamingFrToEn } from 'app/helpers/constants/forms';
 
 const MenuContainer = () => {
   const pools = useSelector(selectPoolsList);
@@ -50,15 +51,24 @@ const MenuContainer = () => {
   });
 
   useEffect(() => {
-    //const poolList = useSelector(state => state.)
-    // @ts-ignore
-    dispatch(getPools());
-    // TODO: dispatch action to fetch
+    if (!isSearch) {
+      // @ts-ignore
+      dispatch(getPools());
+    }
   }, []);
 
   const handleFilters = (filters: Array<string> | number, category: string): void => {
     const newFilters: any = filterParams;
-    newFilters[category] = filters;
+    let newFiltersArray: Array<string> = [];
+    if (category === 'forms') {
+      // @ts-ignore
+      newFiltersArray = filters.map(filter => formsNamingFrToEn[filter]);
+    }
+    if (category === 'categories') {
+      // @ts-ignore
+      newFiltersArray = filters.map(filter => categoriesNamingFrToEn[filter]);
+    }
+    newFiltersArray.length === 0 ? (newFilters[category] = filters) : (newFilters[category] = newFiltersArray);
     setFilterParams(newFilters);
     // redux call
     dispatch(setPoolSearch(newFilters));
@@ -73,11 +83,11 @@ const MenuContainer = () => {
         <div className="col-span-3">
           <div className="w-full bg-white px-5 pt-4 rounded-lg border border-gray-border">
             <span className="font-rubik font-medium	text-lg		">Filtrer les résultats</span>
-            <FilterItemTitle title={'Forme'}/>
-            <FilterItems list={forms} handleFilters={filters => handleFilters(filters, 'forms')}/>
-            <FilterItemTitle title={'Catégorie'}/>
-            <FilterItems list={categories} handleFilters={filters => handleFilters(filters, 'categories')}/>
-            <FilterItemTitle title={'Prix (€) '}/>
+            <FilterItemTitle title={'Forme'} />
+            <FilterItems list={forms} handleFilters={filters => handleFilters(filters, 'forms')} field="forms" />
+            <FilterItemTitle title={'Catégorie'} />
+            <FilterItems list={categories} handleFilters={filters => handleFilters(filters, 'categories')} field="categories" />
+            <FilterItemTitle title={'Prix (€) '} />
             <MultiRangeSlider
               maxValue={priceMaxValue}
               minValue={priceMinValue}

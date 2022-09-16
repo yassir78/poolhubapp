@@ -23,9 +23,9 @@ export const App = () => {
       {location.pathname !== '/login' && location.pathname !== '/signup' && <Navbar/>}
         <Routes>
           <Route path="/" element={<MenuPage />} />
-          <Route path="/pool" element={<PoolDetailsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<RegisterPage />} />
+          <Route path="/pool/:id" element={<PoolDetailsPage />} />
         </Routes>
       {location.pathname !== '/login' && location.pathname !== '/signup' && <Footer/>}
     </>
