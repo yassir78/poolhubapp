@@ -33,6 +33,7 @@ const initialState: PoolInitialState = {
       pageSize: 6,
     },
   },
+  pool: null,
 };
 
 export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload, { getState }) => {
@@ -41,7 +42,6 @@ export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload
   const page = state.pool.pagination.pageable.pageNumber;
   // @ts-ignore
   const requestUrl = `${apiUrl}/page/${state.pool.pagination.pageable.pageNumber}/size/6`;
-  console.log('requestUrl', requestUrl);
   return axios.get(requestUrl);
 });
 export const getPoolsBySearch = createAsyncThunk('pools/fetch_pool_list_by_search', async (payload, { getState }) => {
@@ -52,7 +52,6 @@ export const getPoolsBySearch = createAsyncThunk('pools/fetch_pool_list_by_searc
   const poolSearchOtions = state.pool.poolSearch;
   // @ts-ignore
   const requestUrl = `${apiUrl}/search/page/${page}/size/6`;
-  console.log('requestUrl search', requestUrl);
   return axios({
     method: 'POST',
     url: requestUrl,
@@ -76,7 +75,7 @@ export const poolSlice = createSlice({
       state.pagination.pageable.pageNumber = action.payload;
     },
     setPoolSearch: (state, action) => {
-      state.poolSearch.label = action.payload.label;
+      state.poolSearch.label = action.payload.search;
       state.poolSearch.priceMin = action.payload.priceMin;
       state.poolSearch.priceMax = action.payload.priceMax;
       state.poolSearch.volumeMin = action.payload.volumeMin;
@@ -87,6 +86,9 @@ export const poolSlice = createSlice({
       state.pagination.pageable = {
         pageNumber: 0,
       };
+    },
+    setPool: (state, action) => {
+      state.pool = action.payload;
     },
   },
   extraReducers(builder) {
@@ -113,7 +115,8 @@ export const selectPoolsList = state => state.pool.list;
 export const selectPoolsLoading = state => state.pool.loading;
 export const selectPoolsPagination = state => state.pool.pagination;
 export const selectPoolsSearch = state => state.pool.isPoolSearch;
-export const selectPoolsSearchOptions = state => state.poolSearch;
-export const { moveToPage, setPoolSearch } = poolSlice.actions;
+export const selectPoolsSearchOptions = state => state.pool.poolSearch;
+export const selectPool = state => state.pool.pool;
+export const { moveToPage, setPoolSearch, setPool } = poolSlice.actions;
 
 export default poolSlice.reducer;

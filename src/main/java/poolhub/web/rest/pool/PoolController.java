@@ -39,16 +39,6 @@ public class PoolController {
         @RequestBody PoolSearchDto poolSearchDto
     ) {
         logger.info("Find pools by search criteria");
-        logger.info("priceMin: " + poolSearchDto.getPriceMin());
-        logger.info("priceMax: " + poolSearchDto.getPriceMax());
-        logger.info("volumeMin: " + poolSearchDto.getVolumeMin());
-        logger.info("volumeMax: " + poolSearchDto.getVolumeMax());
-        if (poolSearchDto.getForms() != null) {
-            logger.info("forms: " + poolSearchDto.getForms().toString());
-        } else {
-            logger.info("forms: null");
-        }
-
         return new ResponseEntity<>(poolService.findBySearchCriteria(page, size, poolSearchDto), HttpStatus.OK);
     }
 }

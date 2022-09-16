@@ -46,7 +46,7 @@ public class PoolServiceImpl implements PoolService {
         query += JpqlUtils.addCriteria("label", poolSearchDto.getLabel(), "LIKE");
         query += JpqlUtils.addCriteria("shape", poolSearchDto.getForms());
         query += JpqlUtils.addCriteria("category", poolSearchDto.getCategories());
-
+        logger.info("Query: " + query);
         return new PageImpl<>(
             entityManager
                 .createQuery(query, Pool.class)

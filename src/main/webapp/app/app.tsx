@@ -18,7 +18,7 @@ export const App = () => {
       <div className="min-h-screen bg-octonary px-24 ">
         <Routes>
           <Route path="/" element={<MenuPage />} />
-          <Route path="/pool" element={<PoolDetailsPage />} />
+          <Route path="/pool/:id" element={<PoolDetailsPage />} />
         </Routes>
       </div>
       <Footer />
