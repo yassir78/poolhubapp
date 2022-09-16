@@ -157,8 +157,3 @@ Desktop.ini
 ######################
 /coverage/
 /.nyc_output/
-
-######################
-# Firebase
-######################
-/src/main/resources/config/firebase/
