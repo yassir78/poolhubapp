@@ -1,11 +1,13 @@
 import React, {FC} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export interface PropsBackButton {
-  routeTo: string
+  routeTo?: string
 }
 
-const BackButton:FC<PropsBackButton> = (props) => {
+const BackButton: FC<PropsBackButton> = (props) => {
+
+  const navigate = useNavigate();
 
   const backArrowSvg = () => {
     return <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -22,10 +24,19 @@ const BackButton:FC<PropsBackButton> = (props) => {
     </svg>
   }
 
-  return (
-    <Link to={props.routeTo}
-          className="absolute cursor-pointer hover:scale-110 transition-all ease-in active:opacity-50 -left-20 top-0 z-20">{backArrowSvg()}</Link>
+  const buttonClasses = "absolute cursor-pointer hover:scale-110 transition-all ease-in active:opacity-50 -left-20 top-0 z-40";
 
+  return (
+    <>
+      {
+        props.routeTo ? (
+          <Link to={props.routeTo}
+                className={buttonClasses}>{backArrowSvg()}</Link>
+        ) : (
+          <div onClick={() => navigate(-1)}>{backArrowSvg()}</div>
+        )
+      }
+    </>
   );
 };
 

@@ -57,12 +57,12 @@ const PoolDetailsContainer = () => {
     <div className="flex relative flex-col text-tertiary gap-y-10">
       <BackButton routeTo={"/"}/>
       <div className="flex flex-col lg:flex-row gap-10">
-        <div className="aspect-w-4 lg:aspect-h-1 aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg border border-gray-border relative">
+        <div className="aspect-w-4 lg:aspect-h-1 aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg shadow-md relative">
           <img className="object-cover w-full rounded-lg" src={pool.image} alt="pool image"/>
         </div>
         <PoolDetailsCard pool={pool}/>
       </div>
-      <div className="w-full rounded-lg bg-white text-tertiary border border-gray-border pt-6 pb-12">
+      <div className="w-full rounded-lg bg-white text-tertiary shadow-md pt-6 pb-12">
         <h3 className="font-semibold px-8 pb-6">Description :</h3>
         <p className=" px-8 pb-7 text-justify">{pool.description}</p>
         <h3 className="px-8 py-3 font-bold bg-octonary">Détails du bien</h3>

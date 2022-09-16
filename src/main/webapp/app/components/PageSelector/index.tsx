@@ -18,7 +18,7 @@ const PageSelector = ({ pagination, prevPage, changePage, nextPage, isLast, isFi
           <a
             onClick={event => prevPage(event)}
             className={`relative inline-flex items-center bg-white px-2 py-2 text-sm font-medium text-tertiary ${
-              isFirst ? 'bg-septenary cursor-not-allowed' : 'bg-white hover:bg-octonary'
+              isFirst ? 'bg-septenary cursor-not-allowed' : 'bg-white cursor-pointer hover:bg-octonary'
             }   focus:z-20`}
           >
             <span className="sr-only">Previous</span>
@@ -47,7 +47,7 @@ const PageSelector = ({ pagination, prevPage, changePage, nextPage, isLast, isFi
           <a
             onClick={event => nextPage(event, isLast)}
             className={`relative inline-flex items-center bg-white px-2 py-2 text-sm font-medium text-tertiary ${
-              isLast ? 'bg-septenary cursor-not-allowed' : 'bg-white hover:bg-octonary'
+              isLast ? 'bg-septenary cursor-not-allowed' : 'bg-white cursor-pointer hover:bg-octonary'
             }  focus:z-20'}`}
           >
             <span className="sr-only">Next</span>

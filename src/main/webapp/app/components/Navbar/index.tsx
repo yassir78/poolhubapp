@@ -11,7 +11,7 @@ const Navbar = () => {
   const SIZE_ICONS: number = 14;
 
   return (
-    <nav className="flex justify-between pl-5 pr-12 pt-1 pb-2 top-0 left-0 right-0 z-50 bg-white shadow-lg w-full">
+    <nav className="relative flex justify-between pl-5 pr-12 pt-1 pb-2 top-0 left-0 right-0 z-[100] bg-white shadow-md w-full">
       <div className="cursor-pointer">
         <PoolhubLogo/>
       </div>

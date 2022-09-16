@@ -80,7 +80,7 @@ const MenuContainer = () => {
     <>
       <div className="grid grid-cols-12 pt-10 gap-5">
         <div className="col-span-3">
-          <div className="w-full bg-white px-5 pt-4 rounded-lg border border-gray-border">
+          <div className="w-full bg-white px-5 pt-4 rounded-lg shadow-md">
             <span className="font-rubik font-medium	text-lg		">Filtrer les résultats</span>
             <FilterItemTitle title={'Forme'} />
             <FilterItems list={forms} handleFilters={filters => handleFilters(filters, 'forms')} />
