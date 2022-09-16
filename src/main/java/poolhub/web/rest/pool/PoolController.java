@@ -1,5 +1,6 @@
 package poolhub.web.rest.pool;
 
+import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Logger;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import poolhub.service.PoolService;
 import poolhub.service.dto.PoolListResponseDto;
 import poolhub.service.dto.PoolSearchDto;
