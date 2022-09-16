@@ -2,8 +2,11 @@ package poolhub.service.Utils;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class JpqlUtils {
+
+    private static Logger logger = Logger.getLogger(JpqlUtils.class.getName());
 
     public static String init(Class<?> clazz) {
         return "SELECT item From " + clazz.getSimpleName() + " item where 1=1 ";
@@ -15,16 +18,19 @@ public class JpqlUtils {
         return query;
     }
 
-    public static String addCriteria(String key, List<Object> values) {
-        String query = "AND ( ";
-        values
-            .stream()
-            .filter(Objects::nonNull)
-            .forEach(value -> {
-                //query += "item."+key+" LIKE "+ " '%" + value + "%'";
-            });
-
-        return "";
+    public static String addCriteria(String key, List<String> values) {
+        if (Objects.isNull(values) || values.isEmpty()) {
+            return "";
+        }
+        StringBuilder query = new StringBuilder("AND ( ");
+        for (String value : values.stream().filter(Objects::nonNull).toList()) {
+            query.append("item.").append(key).append(" LIKE '%").append(value).append("%' ");
+            if (values.indexOf(value) != values.size() - 1) {
+                query.append("OR ");
+            }
+        }
+        query.append(" )");
+        return query.toString();
     }
 
     public static String addCriteria(String key, Object value, String operator) {

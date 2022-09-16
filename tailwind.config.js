@@ -17,6 +17,9 @@ module.exports = {
       'gray-100': '#D3D3D3',
       textGray: '#989898',
       transparent: 'transparent',
+      'red-500': '#D2001A',
+      'blue-600': '#44576B',
+      'gray-400': '#99A4AE',
       'gray-border': '#CFD2CF',
       extend: {
         fontFamily: {

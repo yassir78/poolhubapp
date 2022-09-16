@@ -1,12 +1,14 @@
 package poolhub.web.rest.pool;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.logging.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +34,7 @@ public class PoolController {
         return new ResponseEntity<>(poolService.getAllPools(page, size), HttpStatus.OK);
     }
 
-    @GetMapping("/search/page/{page}/size/{size}")
+    @PostMapping("/search/page/{page}/size/{size}")
     public ResponseEntity<Page<PoolListResponseDto>> findBySearchCriteria(
         @PathVariable Integer page,
         @PathVariable Integer size,

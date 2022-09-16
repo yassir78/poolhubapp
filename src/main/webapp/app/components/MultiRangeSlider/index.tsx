@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import { DebounceInput } from 'react-debounce-input';
+import { useSelector } from 'react-redux';
+import { selectPoolsSearchOptions } from 'app/redux/slices/poolSlice';
 
 const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, max, step, priceCap, handleFilters, field }) => {
   const progressRef = useRef(null);
+  const poolOptions = useSelector(selectPoolsSearchOptions);
 
   const handleMin = e => {
     if (maxValue - minValue >= priceCap && maxValue <= max) {
@@ -34,6 +38,13 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
   };
 
   useEffect(() => {
+    if (field == 'price') {
+      if (poolOptions.priceMin != null) setMinValue(poolOptions.priceMin);
+      if (poolOptions.priceMax != null) setMaxValue(poolOptions.priceMax);
+    } else if (field == 'volume') {
+      if (poolOptions.volumeMin != null) setMinValue(poolOptions.volumeMin);
+      if (poolOptions.volumeMax != null) setMaxValue(poolOptions.volumeMax);
+    }
     progressRef.current.style.left = (minValue / max) * step + '%';
     progressRef.current.style.right = step - (maxValue / max) * step + '%';
   }, [minValue, maxValue, max, step]);
@@ -45,22 +56,23 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
         <div className="slider relative h-1 rounded-md bg-gray-300">
           <div className="progress absolute h-1 bg-green-300 rounded " ref={progressRef} />
         </div>
-
         <div className="range-input relative  ">
-          <input
+          <DebounceInput
             onChange={handleMin}
             type="range"
             min={min}
+            debounceTimeout={300}
             step={step}
             max={max}
             value={minValue}
             className="range-min absolute w-full  -top-1  h-1   bg-gray-100  appearance-none pointer-events-none"
           />
 
-          <input
+          <DebounceInput
             onChange={handleMax}
             type="range"
             min={min}
+            debounceTimeout={300}
             step={step}
             max={max}
             value={maxValue}
