@@ -38,14 +38,15 @@ const PoolDetailsContainer: FC = () => {
   };
 
   return (
-    <div className="pt-3">
-      <div className="flex relative flex-col text-tertiary gap-y-5">
-        <BackButton routeTo={'/'} />
+    <div className="min-h-screen bg-octonary px-24 ">
+      <div className="flex relative flex-col text-tertiary pt-10 gap-y-10">
+        <BackButton routeTo={"/"}/>
         <div className="flex flex-col lg:flex-row gap-10">
-          <div className="aspect-w-4 lg:aspect-h-1 aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg border border-gray-border relative">
-            <img className="object-cover w-full rounded-lg" src={pool.image} alt="pool image" />
+          <div
+            className="aspect-w-4 lg:aspect-h-1 aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg border border-gray-border relative">
+            <img className="object-cover w-full rounded-lg" src={pool.image} alt="pool image"/>
           </div>
-          <PoolDetailsCard pool={pool} />
+          <PoolDetailsCard pool={pool}/>
         </div>
         <div className="w-full rounded-lg bg-white text-tertiary border border-gray-border pt-6 pb-12">
           <h3 className="font-semibold px-8 pb-6">Description :</h3>

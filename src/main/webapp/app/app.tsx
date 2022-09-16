@@ -2,26 +2,32 @@ import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
 import React from 'react';
 import Navbar from 'app/components/Navbar';
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import MenuPage from 'app/pages/MenuPage';
 import Footer from 'app/components/Footer';
 import setupAxiosInterceptors from 'app/helpers/services/axios-interceptor';
 import PoolDetailsPage from 'app/pages/PoolDetailsPage';
+import LoginPage from "app/pages/LoginPage";
+import RegisterPage from "app/pages/RegisterPage";
 
 /*const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
 setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));*/
 setupAxiosInterceptors();
 export const App = () => {
+
+  let location = useLocation();
+
   return (
+
     <>
-      <Navbar />
-      <div className="min-h-screen bg-octonary px-24 ">
+      {location.pathname !== '/login' && location.pathname !== '/signup' && <Navbar/>}
         <Routes>
           <Route path="/" element={<MenuPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<RegisterPage />} />
           <Route path="/pool/:id" element={<PoolDetailsPage />} />
         </Routes>
-      </div>
-      <Footer />
+      {location.pathname !== '/login' && location.pathname !== '/signup' && <Footer/>}
     </>
   );
 };
