@@ -23,6 +23,9 @@ public class AdminUserDTO implements Serializable {
     @Size(min = 1, max = 50)
     private String login;
 
+    @Size(min = 5, max = 600)
+    private String username;
+
     @Size(max = 50)
     private String firstName;
 
@@ -69,6 +72,7 @@ public class AdminUserDTO implements Serializable {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        this.username = user.getUsername();
     }
 
     public Long getId() {
