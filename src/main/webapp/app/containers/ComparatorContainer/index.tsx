@@ -153,6 +153,21 @@ const ComparatorContainer = () => {
     </div>
   }
 
+  const getBuyButtons = () => {
+    const rows: JSX.Element[] = [];
+    for (let i = 0; i < pools.length; i++) {
+      rows.push(<div className="col-span-2 flex justify-center align-middle">
+        <div className="px-16 py-3 bg-primary mt-5 rounded-lg font-bold text-octonary cursor-pointer select-none hover:scale-105 transition-all ease-in active:opacity-75">
+          Acheter
+        </div>
+      </div>);
+    }
+    return <div className="grid grid-flow-row grid-cols-7">
+      <div/>
+      {rows}
+    </div>
+  }
+
   return (
     <div className="text-tertiary px-24 py-10">
 
@@ -180,8 +195,7 @@ const ComparatorContainer = () => {
         }
 
       </div>
-
-
+      {getBuyButtons()}
     </div>
   );
 };
