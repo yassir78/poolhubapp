@@ -31,8 +31,7 @@ const PoolCard: FC<PoolCardProps> = ({ pool }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md pb-6 hover:cursor-pointer hover:opacity-50">
-
+    <div className="bg-white rounded-lg shadow-md pb-6 hover:cursor-pointer hover:opacity-50" onClick={handleClick}>
       <div className="space-y-3">
         <div className="aspect-w-4 aspect-h-2 relative">
           <img className="object-cover rounded-t-lg w-full" src={pool.image} />
@@ -50,7 +49,7 @@ const PoolCard: FC<PoolCardProps> = ({ pool }) => {
             </div>
 
             <div className="grid grid-cols-2 gap-1 pt-4 border-t-2 border-gray-border">
-              {poolDetail(pool.volume.toString() + ' m3', faCube)}
+              {poolDetail(pool.volume + ' m3', faCube)}
               {poolDetail(pool.category, faLayerGroup)}
               {poolDetail(pool.material, faRecycle)}
               {poolDetail(pool.color, faPalette)}

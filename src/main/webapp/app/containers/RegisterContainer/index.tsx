@@ -19,7 +19,6 @@ import {
   isProfileImageLoading,
   isProfileImageSuccess,
   isRegisterLoading,
-  reset,
 } from 'app/redux/slices/registerSlice';
 import Modal from 'app/components/Modal';
 
@@ -72,6 +71,7 @@ const RegisterContainer = () => {
     console.log({ firstName, lastName, email, password, address, username });
     // @ts-ignore
     dispatch(
+      // @ts-ignore
       handleRegister({
         login: username,
         firstName,
