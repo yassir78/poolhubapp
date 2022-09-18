@@ -38,32 +38,31 @@ const PoolDetailsContainer: FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-octonary px-24 ">
-      <div className="flex relative flex-col text-tertiary pt-10 gap-y-10">
-        <BackButton routeTo={"/"}/>
-        <div className="flex flex-col lg:flex-row gap-10">
-          <div
-            className="aspect-w-4 lg:aspect-h-1 aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg border border-gray-border relative">
-            <img className="object-cover w-full rounded-lg" src={pool.image} alt="pool image"/>
-          </div>
-          <PoolDetailsCard pool={pool}/>
+    <div className="flex relative flex-col text-tertiary gap-y-10">
+      <BackButton routeTo={"/"}/>
+      <div className="flex flex-col lg:flex-row gap-10">
+        <div className="aspect-w-4 lg:aspect-h-1 aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg shadow-md relative">
+          <img className="object-cover w-full rounded-lg" src={pool.image} alt="pool image"/>
         </div>
-        <div className="w-full rounded-lg bg-white text-tertiary border border-gray-border pt-6 pb-12">
-          <h3 className="font-semibold px-8 pb-6">Description :</h3>
-          <p className=" px-8 pb-7 text-justify">{pool.description}</p>
-          <h3 className="px-8 py-3 font-bold bg-octonary">Détails du bien</h3>
-          <div className="grid md:grid-cols-2 grid-cols-1">
-            {tableLine('Volume', pool.volume != undefined ? `${pool.shape} m3` : '-', faCube)}
-            {tableLine('Forme', pool.shape != undefined ? `${pool.shape}` : '-', faSquare)}
-            {tableLine('Couleur', pool.color != undefined ? `${pool.color}` : '-', faPalette)}
-            {tableLine('Materiel', pool.material != undefined ? `${pool.material}` : '-', faRecycle)}
-            {tableLine('Longueur', pool.width != undefined ? `${pool.width} m` : '-', faArrowsLeftRight)}
-            {tableLine('Largeur', pool.length != undefined ? `${pool.length} m` : '-', faArrowsUpDown)}
-            {tableLine('Profondeur', pool.height != undefined ? `${pool.height} m` : '-', faArrowDownShortWide)}
-            {tableLine('Garantie', pool.warranty != undefined ? `${pool.warranty} ans` : '-', faClipboardCheck)}
-            {tableLine('Categorie', pool.category, faLayerGroup)}
-            {tableLine('Marque', pool.brand, faCopyright)}
-          </div>
+        <PoolDetailsCard pool={pool}/>
+      </div>
+      <div className="w-full rounded-lg bg-white text-tertiary shadow-md pt-6 pb-12">
+        <h3 className="font-semibold px-8 pb-6">Description :</h3>
+        <p className=" px-8 pb-7 text-justify">{pool.description}</p>
+        <h3 className="px-8 py-3 font-bold bg-octonary">Détails du bien</h3>
+        <div className="grid md:grid-cols-2 grid-cols-1">
+
+        {tableLine("Volume", pool.volume.toString() + " m3", faCube)}
+        {tableLine("Forme", pool.shape, faSquare)}
+        {tableLine("Couleur", pool.color, faPalette)}
+        {tableLine("Materiel", pool.material, faRecycle)}
+        {tableLine("Longueur", pool.width.toString() + "m", faArrowsLeftRight)}
+        {tableLine("Largeur", pool.length.toString() + "m", faArrowsUpDown)}
+        {tableLine("Profondeur", pool.depth.toString() + "m", faArrowDownShortWide)}
+        {tableLine("Garantie", pool.warranty.toString() + " ans", faClipboardCheck)}
+        {tableLine("Categorie", pool.category, faLayerGroup)}
+        {tableLine("Marque", pool.brand, faCopyright)}
+
         </div>
       </div>
     </div>

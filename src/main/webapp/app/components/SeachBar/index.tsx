@@ -10,7 +10,7 @@ const SearchBar = ({ handleFilters }) => {
   return (
     <div className="w-full">
       <label htmlFor="search" className="sr-only">
-        Search
+        Rechercher
       </label>
       <div className="relative">
         <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -26,8 +26,8 @@ const SearchBar = ({ handleFilters }) => {
           name="search"
           value={searchContent}
           onChange={event => handleChange(event)}
-          className="block  w-full bg-white border border-gray-border rounded-md py-3 pl-14 pr-3 text-lg	 placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-primary focus:border-primary "
-          placeholder="Search"
+          className="block  w-full bg-white border-none shadow-md rounded-md py-3 pl-14 pr-3 text-lg	 placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-primary focus:border-primary "
+          placeholder="Rechercher"
           type="search"
         />
       </div>

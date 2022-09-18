@@ -12,7 +12,8 @@ const Navbar = () => {
   const defaultImage = 'https://miro.medium.com/max/441/1*9EBHIOzhE1XfMYoKz1JcsQ.gif';
 
   return (
-    <nav className="flex justify-between px-16 pt-1 pb-2 top-0 left-0 right-0 z-50 bg-white shadow-lg w-full">
+    <nav className="relative flex justify-between pl-5 pr-12 pt-1 pb-2 top-0 left-0 right-0 z-[100] bg-white shadow-md w-full">
+
       <div className="cursor-pointer">
         <PoolhubLogo />
       </div>

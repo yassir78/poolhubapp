@@ -33,7 +33,7 @@ const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
   };
 
   return (
-    <div className="bg-white flex flex-col justify-between rounded-lg border border-gray-border px-10 pt-12 pb-6 w-full lg:w-2/5">
+    <div className="bg-white flex flex-col justify-between rounded-lg shadow-md px-10 pt-12 pb-6 w-full lg:w-2/5">
       <div>
         <h3 className="text-quinary  text-3xl font-bold overflow-hidden line-clamp-2 pb-4">{pool.label}</h3>
 

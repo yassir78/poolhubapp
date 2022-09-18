@@ -7,6 +7,7 @@ import MenuPage from 'app/pages/MenuPage';
 import Footer from 'app/components/Footer';
 import setupAxiosInterceptors from 'app/helpers/services/axios-interceptor';
 import PoolDetailsPage from 'app/pages/PoolDetailsPage';
+import PurchasePage from "app/pages/PurchasePage";
 import LoginPage from 'app/pages/LoginPage';
 import RegisterPage from 'app/pages/RegisterPage';
 import store from 'app/redux/store';
@@ -26,16 +27,18 @@ export const App = () => {
   }, []);
 
   return (
-    <>
-      {location.pathname !== '/login' && location.pathname !== '/signup' && <Navbar />}
-      <Routes>
-        <Route path="/" element={<MenuPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<RegisterPage />} />
-        <Route path="/pool/:id" element={<PoolDetailsPage />} />
-      </Routes>
-      {location.pathname !== '/login' && location.pathname !== '/signup' && <Footer />}
-    </>
+    <div className="relative">
+      <Navbar />
+      <div className="bg-octonary relative z-1 px-24">
+        <Routes>
+          <Route path="/" element={<MenuPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/pool/:id" element={<PoolDetailsPage />} />
+          <Route path="/purchase" element={<PurchasePage />} />
+        </Routes>
+      </div>
+      <Footer />
+    </div>
   );
 };
 
