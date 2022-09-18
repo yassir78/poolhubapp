@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import poolReducer from './slices/poolSlice';
 import authReducer from './slices/authSlice';
+import registerReducer from 'app/redux/slices/registerSlice';
+
 export default configureStore({
   reducer: {
     pool: poolReducer,
     auth: authReducer,
+    register: registerReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

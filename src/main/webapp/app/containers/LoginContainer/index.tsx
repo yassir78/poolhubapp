@@ -7,9 +7,10 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { login, selectLoading, selectLoginError } from 'app/redux/slices/authSlice';
+import { clearAuth, login, selectLoading, selectLoginError } from 'app/redux/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'app/components/Spinner';
+import Modal from 'app/components/Modal';
 
 const schema = yup
   .object({
@@ -44,9 +45,12 @@ const LoginContainer = () => {
     // TODO : show error message if user credentials are invalids
   };
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const handleClose = () => {
+    dispatch(clearAuth());
+  };
 
   return (
-    <div className="h-screen w-screen flex relative">
+    <div className="h-screen flex relative">
       <div className="w-7/12 px-20 py-10 relative h-full bg-septenary">
         <PoolhubLogo tailwClasses="scale-150 ml-10" />
         <div className="flex justify-center mt-10">{LoginSvg}</div>
@@ -55,6 +59,7 @@ const LoginContainer = () => {
         <div className="flex">
           <h1 className="text-xl mr-10 font-bold pb-10 leading-tight tracking-tight text-tertiary md:text-2xl">Se connecter</h1>
           {loading && <Spinner />}
+          {loginError && <Modal isError={loginError} messageKey="login.error" handleClose={handleClose} />}
         </div>
 
         <form className="space-y-14 md:space-y-6 text-lg" onSubmit={handleSubmit(onSubmit)}>
@@ -116,12 +121,6 @@ const LoginContainer = () => {
           <div className="flex items-center justify-end">
             <a className="text-sm pb-4 font-medium text-textGray select-none cursor-pointer hover:underline">Mot de pass oublié</a>
           </div>
-          {loginError && (
-            <div className="text-left mb-5">
-              <span className="text-xl text-red-500 ">Pseudo ou mot de passe sont incorrectes</span>
-            </div>
-          )}
-
           <button
             type="submit"
             disabled={loading}

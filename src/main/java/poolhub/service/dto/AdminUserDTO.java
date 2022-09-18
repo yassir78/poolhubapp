@@ -29,6 +29,9 @@ public class AdminUserDTO implements Serializable {
     @Size(max = 50)
     private String lastName;
 
+    @Size(max = 600)
+    private String address;
+
     @Email
     @Size(min = 5, max = 254)
     private String email;
@@ -53,6 +56,14 @@ public class AdminUserDTO implements Serializable {
 
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public AdminUserDTO(User user) {

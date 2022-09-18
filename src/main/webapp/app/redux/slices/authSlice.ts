@@ -34,7 +34,9 @@ export const authenticate = createAsyncThunk(
 
 export const getSession = () => async (dispatch, getState) => {
   console.log("i'm inside the getSession function 😊😊");
-  await dispatch(getAccount());
+  if (Storage.local.get(AUTH_TOKEN_KEY)) {
+    await dispatch(getAccount());
+  }
 };
 export const login =
   (username, password, rememberMe = false) =>
@@ -100,6 +102,8 @@ export const authSlice = createSlice({
         loading: false,
         showModalLogin: true,
         isAuthenticated: false,
+        errorMessage: null,
+        loginError: false,
       };
     },
   },
@@ -146,6 +150,7 @@ export const authSlice = createSlice({
 });
 
 export const { logoutSession, authError, clearAuth } = authSlice.actions;
+export const selectAccount = state => state.auth.account;
 export const selectLoginError = state => state.auth.loginError;
 export const selectLoading = state => state.auth.loading;
 

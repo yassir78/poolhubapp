@@ -170,3 +170,42 @@ body {
     margin-right: 0;
   }
 }
+
+@keyframes border-pulsate {
+  0% {
+    border-color: $blue_button;
+  }
+  50% {
+    border-color: rgba(0, 255, 255, 0);
+  }
+  100% {
+    border-color: $blue_button;
+  }
+}
+
+.border-pulsate {
+  animation: border-pulsate 2s infinite;
+}
+.circle-success {
+  border-color: #59ce8f;
+}
+.circle-failure {
+  border-color: red;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background: $blue_button;
+}
+/* Handle on hover */
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: $blue_button;
+}
