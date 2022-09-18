@@ -14,6 +14,7 @@ import store from 'app/redux/store';
 import { clearAuthentication, getSession } from 'app/redux/slices/authSlice';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
+import ComparatorPage from "app/pages/ComparatorPage";
 
 const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
 //setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));
@@ -36,6 +37,7 @@ export const App = () => {
           <Route path="/pool/:id" element={<PoolDetailsPage />} />
           <Route path="/purchase" element={<PurchasePage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/comparator" element={<ComparatorPage />} />
         </Routes>
       </div>
       {location.pathname !== '/login' && location.pathname !== '/register' && <Footer />}

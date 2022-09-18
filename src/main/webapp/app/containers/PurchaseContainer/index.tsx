@@ -29,7 +29,7 @@ const PurchaseContainer = () => {
       'https://firebasestorage.googleapis.com/v0/b/poolhubapp-859cf.appspot.com/o/pool_test_images%2FPISCINE%20NOIR.jpg?alt=media&token=dfa2bdd9-af3d-4498-8a00-be8f51ad260c',
     length: 2.74,
     width: 6.4,
-    depth: 1.32,
+    height: 1.32,
     warranty: 2,
     category: Category.ONGROUND,
     brand: 'BESTWAY',

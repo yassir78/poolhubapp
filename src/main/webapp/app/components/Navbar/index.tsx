@@ -28,7 +28,7 @@ const Navbar = () => {
             Se connecter
           </Link>
         )}
-        <div className="relative w-10 h-10">
+        <Link to={"/comparator"} className="relative w-10 h-10">
           <div className="inline-flex absolute -top-3 -right-3 select-none justify-center items-center w-5 h-5 text-xs bg-secondary rounded-full">
             {0}
           </div>
@@ -36,7 +36,7 @@ const Navbar = () => {
             className="text-primary w-full h-full cursor-pointer transition-all hover:scale-105 ease-in active:-translate-y-1"
             icon={faScaleBalanced}
           />
-        </div>
+        </Link>
       </div>
     </nav>
   );
