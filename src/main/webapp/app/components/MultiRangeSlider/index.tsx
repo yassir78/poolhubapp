@@ -1,19 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { DebounceInput } from 'react-debounce-input';
+import { useSelector } from 'react-redux';
+import { selectPoolsSearchOptions } from 'app/redux/slices/poolSlice';
 
 const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, max, step, priceCap, handleFilters, field }) => {
   const progressRef = useRef(null);
-  const debounce = func => {
-    let timer;
-    return function (...args) {
-      const context = this;
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        timer = null;
-        func.apply(context, args);
-      }, 500);
-    };
-  };
+  const poolOptions = useSelector(selectPoolsSearchOptions);
 
   const handleMin = e => {
     if (maxValue - minValue >= priceCap && maxValue <= max) {
@@ -46,6 +38,13 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
   };
 
   useEffect(() => {
+    if (field == 'price') {
+      if (poolOptions.priceMin != null) setMinValue(poolOptions.priceMin);
+      if (poolOptions.priceMax != null) setMaxValue(poolOptions.priceMax);
+    } else if (field == 'volume') {
+      if (poolOptions.volumeMin != null) setMinValue(poolOptions.volumeMin);
+      if (poolOptions.volumeMax != null) setMaxValue(poolOptions.volumeMax);
+    }
     progressRef.current.style.left = (minValue / max) * step + '%';
     progressRef.current.style.right = step - (maxValue / max) * step + '%';
   }, [minValue, maxValue, max, step]);
@@ -57,7 +56,6 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
         <div className="slider relative h-1 rounded-md bg-gray-300">
           <div className="progress absolute h-1 bg-green-300 rounded " ref={progressRef} />
         </div>
-
         <div className="range-input relative  ">
           <DebounceInput
             onChange={handleMin}

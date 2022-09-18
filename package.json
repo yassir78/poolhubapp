@@ -75,6 +75,7 @@
     "@fortawesome/fontawesome-svg-core": "6.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@fortawesome/react-fontawesome": "0.2.0",
+    "@hookform/resolvers": "^2.8.8",
     "@reduxjs/toolkit": "1.8.5",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
@@ -88,8 +89,9 @@
     "react": "18.2.0",
     "react-debounce-input": "^3.3.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.30.0",
+    "react-hook-form": "^7.30.0",
     "react-jhipster": "0.22.0",
+    "react-lazy-load-image-component": "^1.5.5",
     "react-loadable": "5.5.0",
     "react-redux": "8.0.2",
     "react-redux-loading-bar": "5.0.4",
@@ -100,7 +102,8 @@
     "redux": "4.2.0",
     "redux-thunk": "2.4.1",
     "tslib": "2.4.0",
-    "uuid": "8.3.2"
+    "uuid": "8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.9",

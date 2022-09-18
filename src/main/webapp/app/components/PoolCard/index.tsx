@@ -1,19 +1,28 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Pool } from 'app/models/pool.model';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCube, faLayerGroup, faRecycle, faPalette, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { faCube, faLayerGroup, faPalette, faRecycle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setPool } from 'app/redux/slices/poolSlice';
 
 export interface PoolCardProps {
   pool: Pool;
 }
 
 const PoolCard: FC<PoolCardProps> = ({ pool }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClick = e => {
+    e.preventDefault();
+    navigate(`/pool/${pool.ref}`);
+    dispatch(setPool(pool));
+  };
   const poolDetail = (detail: string, icon: IconDefinition, title: string = '') => {
     return (
       <div className="flex flex-row items-center" title={title}>
         <div className="mx-2">
-          ;
           <FontAwesomeIcon className="fill-tertiary text-gray-400" icon={icon} />
         </div>
         <span className="text-tertiary font-thin text-sm truncate text-blue-600 lowercase">{detail}</span>
@@ -23,6 +32,7 @@ const PoolCard: FC<PoolCardProps> = ({ pool }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md pb-6 hover:cursor-pointer hover:opacity-50">
+
       <div className="space-y-3">
         <div className="aspect-w-4 aspect-h-2 relative">
           <img className="object-cover rounded-t-lg w-full" src={pool.image} />
