@@ -1,6 +1,6 @@
-id;login;user_name;address;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;last_modified_by
-1;admin;vultureDark;82 Avenue De Marlioz;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;;true;en;system;system
-2;user;clearso;32 rue des lieutemants Thomazo;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;;true;en;system;system
-3;seller1;kitCrayon;63 rue de Groussay;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Yassir;Acaf;yassir@localhost;;true;en;system;system
-4;seller2;mersabr;35 rue Sadi Carnot;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Madara;Uchiha;madara@localhost;;true;en;system;system
-5;seller3;ousenext;55 Avenue Millies Lacroix;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Sasuke;Uchiha;sasuke@localhost;;true;en;system;system
+id;login;address;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;last_modified_by
+1;admin;82 Avenue De Marlioz;$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;Administrator;Administrator;admin@localhost;;true;en;system;system
+2;user;32 rue des lieutemants Thomazo;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;User;User;user@localhost;;true;en;system;system
+3;seller1;63 rue de Groussay;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Yassir;Acaf;yassir@localhost;;true;en;system;system
+4;seller2;35 rue Sadi Carnot;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Madara;Uchiha;madara@localhost;https://firebasestorage.googleapis.com/v0/b/poolhubapp-859cf.appspot.com/o/uploaded_images%2F1663493085050-hello.png?alt=media;true;en;system;system
+5;seller3;55 Avenue Millies Lacroix;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Sasuke;Uchiha;sasuke@localhost;;true;en;system;system

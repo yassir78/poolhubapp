@@ -20,10 +20,6 @@
             <column name="login" type="varchar(50)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_login"/>
             </column>
-            <column name="user_name" type="varchar(50)">
-                <constraints unique="true" nullable="false"
-                    uniqueConstraintName="ux_user_user_name"/>
-            </column>
             <column name="address" type="varchar(600)">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_address"/>
             </column>

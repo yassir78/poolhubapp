@@ -7,6 +7,21 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Spinner from 'app/components/Spinner';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getIsRegisterFailure,
+  getProfileImage,
+  getRegisterErrorMessage,
+  handleRegister,
+  handleUploadProfileImage,
+  isProfileImageFailure,
+  isProfileImageLoading,
+  isProfileImageSuccess,
+  isRegisterLoading,
+  reset,
+} from 'app/redux/slices/registerSlice';
+import Modal from 'app/components/Modal';
 
 const schema = yup
   .object({
@@ -15,6 +30,7 @@ const schema = yup
     email: yup.string().email("L'email n'est pas valid").required("L'email est requise"),
     password: yup.string().required('Mot de passe requis').min(4, 'Le mot de passe doit être composé de 4 caractères minimum'),
     address: yup.string().required("L'adresse est requise").min(4, "L'adresse doit être composé de 4 caractères minimum"),
+    username: yup.string().required("Nom d'utilisateur requis").min(4, "Le nom d'utilisateur doit être composé de 4 caractères minimum"),
     confirmPassword: yup
       .string()
       .required('Confirmation du mot de passe requise')
@@ -37,9 +53,37 @@ const RegisterContainer = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const avatarInputRef = useRef(null);
+  const dispatch = useDispatch();
+  const loading = useSelector(isRegisterLoading);
+  const isImageLoading = useSelector(isProfileImageLoading);
+  const isImageLoadingSuccess = useSelector(isProfileImageSuccess);
+  const isImageLoadingFailure = useSelector(isProfileImageFailure);
+  const profileImage = useSelector(getProfileImage);
+  const registerErrorMessage = useSelector(getRegisterErrorMessage);
+  const isRegisterFailure = useSelector(getIsRegisterFailure);
+
   const onSubmit = data => {
-    console.log('data', data);
-    console.log('onSubmit');
+    const firstName = watch('firstName');
+    const lastName = watch('lastName');
+    const email = watch('email');
+    const password = watch('password');
+    const address = watch('address');
+    const username = watch('username');
+    console.log({ firstName, lastName, email, password, address, username });
+    // @ts-ignore
+    dispatch(
+      handleRegister({
+        login: username,
+        firstName,
+        lastName,
+        email,
+        password,
+        address,
+        imageUrl: profileImage,
+      })
+    );
+    reset();
+    handleAvatarDelete(new Event('click'));
   };
   const handleAvatarClick = e => {
     e.preventDefault();
@@ -51,12 +95,22 @@ const RegisterContainer = () => {
   const changeAvatarHandler = event => {
     event.preventDefault();
     const file = event.target.files[0];
+    console.log('file', file);
     setSelectedFile(file);
+    // @ts-ignore
+    dispatch(handleUploadProfileImage(file));
+  };
+
+  const handleClose = () => {
+    // @ts-ignore
+    dispatch(reset());
   };
 
   const handleAvatarDelete = e => {
     e.preventDefault();
     setSelectedFile(null);
+    // @ts-ignore
+    dispatch(resetImage());
   };
 
   const templateAvatarSvg = () => {
@@ -82,19 +136,24 @@ const RegisterContainer = () => {
   };
 
   return (
-    <div className="h-screen w-screen flex relative">
+    <div className="h-full w-full flex relative ">
       <div className="w-5/12 px-20 py-10 relative h-full bg-septenary">
         <PoolhubLogo tailwClasses="scale-150 ml-10" />
-        <div className="flex justify-center mt-20">{RegisterSvg}</div>
+        <div className="flex justify-center mt-20 mb-28">{RegisterSvg}</div>
       </div>
-      <div className="w-7/12 h-full py-20 px-20 bg-white">
+      <div className="w-7/12 h-full pb-20 pt-14 px-20 bg-white">
         <div className="flex justify-end pb-4">
           <Link to={'/login'} className="w-fit cursor-pointer hover:underline text-primary  font-bold text-sm uppercase small-caps">
             Se connecter
           </Link>
         </div>
 
-        <h1 className="text-xl font-bold pb-10 leading-tight tracking-tight text-tertiary md:text-2xl">A propos de vous</h1>
+        <div className="flex">
+          <h1 className="text-xl mr-10 font-bold pb-10 leading-tight tracking-tight text-tertiary md:text-2xl">
+            A propos de vous <Modal isError={isRegisterFailure} messageKey={registerErrorMessage} handleClose={handleClose} />
+          </h1>
+          {loading && <Spinner />}
+        </div>
         <form className="grid grid-cols-2 gap-x-4 gap-y-6 grid-flow-row">
           <div>
             <label htmlFor="firstName" className="block mb-4 text-lg font-medium text-tertiary">
@@ -132,6 +191,24 @@ const RegisterContainer = () => {
               placeholder="Votre prénom"
             />
             {errors.lastName && <p className="text-red-500 text-xs mt-2 ">{errors.lastName.message}</p>}
+          </div>
+          <div>
+            <label htmlFor="lastName" className="block mb-4 text-lg font-medium text-tertiary">
+              Pseudo
+            </label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              {...register('username')}
+              className={`border border-gray-border
+                   focus:outline-none
+                   placeholder-textGray text-tertiary rounded-lg
+                    ${errors.username ? 'border-red-500 focus:border-red-500 focus:ring-transparent' : 'focus:border-primary'}
+                   block w-full p-3.5`}
+              placeholder="Votre nom d'utilisateur"
+            />
+            {errors.username && <p className="text-red-500 text-xs mt-2 ">{errors.username.message}</p>}
           </div>
           <div>
             <label htmlFor="email" className="block mb-4 text-lg font-medium text-tertiary">
@@ -175,7 +252,7 @@ const RegisterContainer = () => {
             <label htmlFor="password" className="block mb-4 text-lg font-medium text-tertiary">
               Mot de passe
             </label>
-            <div className="relative">
+            <div className="relative z-0	">
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -183,10 +260,10 @@ const RegisterContainer = () => {
                 {...register('password')}
                 placeholder="Votre mot de passe"
                 className={`border border-gray-border
-                     focus:outline-none
-                     placeholder-textGray text-tertiary rounded-lg
-                     ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-transparent' : 'focus:border-primary'}
-                     block w-full p-3.5`}
+                   focus:outline-none
+                   placeholder-textGray text-tertiary rounded-lg
+                    ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-transparent' : 'focus:border-primary'}
+                   block w-full p-3.5`}
                 required={true}
               />
 
@@ -203,7 +280,7 @@ const RegisterContainer = () => {
             <label htmlFor="confirmPassword" className="block mb-4 text-lg font-medium text-tertiary">
               Confirmer mot de passe
             </label>
-            <div className="relative">
+            <div className="relative z-0">
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
@@ -231,7 +308,11 @@ const RegisterContainer = () => {
               Photo de profil
             </label>
             <div className="flex items-center gap-6">
-              <div className="bg-septenary flex justify-center overflow-hidden items-center rounded-full w-24 h-24">
+              <div
+                className={`bg-septenary flex justify-center overflow-hidden ${isImageLoading && 'border-pulsate border-4'} ${
+                  isImageLoadingSuccess && 'circle-success border-4'
+                } ${isImageLoadingFailure && 'circle-failure border-4'}  items-center rounded-full w-24 h-24 `}
+              >
                 {selectedFile ? <img src={URL.createObjectURL(selectedFile)} alt="Avatar preview" /> : templateAvatarSvg()}
               </div>
               <p onClick={e => handleAvatarClick(e)} className="text-base text-primary hover:underline cursor-pointer">
@@ -256,17 +337,20 @@ const RegisterContainer = () => {
             </div>
           </div>
         </form>
-        <button
-          type="submit"
-          onClick={handleSubmit(onSubmit)}
-          disabled={isValid}
-          className={`flex justify-center mt-8 mx-auto w-1/3 text-white
+        <div className="text-right">
+          <button
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isValid || isImageLoading}
+            className={` mr-0  w-1/3 text-white
+            ${isValid || isImageLoading ? 'bg-gray-border' : 'bg-primary'}
            text-lg font-bold focus:outline-none font-medium rounded-lg
            bg-primary
            text-sm px-5 py-3 active:opacity-75 text-center hover:scale-105 transition-all ease-in `}
-        >
-          S'inscrire {isValid}
-        </button>
+          >
+            S'inscrire {isValid}
+          </button>
+        </div>
       </div>
     </div>
   );

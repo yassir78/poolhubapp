@@ -23,14 +23,14 @@ public class AdminUserDTO implements Serializable {
     @Size(min = 1, max = 50)
     private String login;
 
-    @Size(min = 5, max = 600)
-    private String username;
-
     @Size(max = 50)
     private String firstName;
 
     @Size(max = 50)
     private String lastName;
+
+    @Size(max = 600)
+    private String address;
 
     @Email
     @Size(min = 5, max = 254)
@@ -58,6 +58,14 @@ public class AdminUserDTO implements Serializable {
         // Empty constructor needed for Jackson.
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public AdminUserDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
@@ -72,7 +80,6 @@ public class AdminUserDTO implements Serializable {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
-        this.username = user.getUsername();
     }
 
     public Long getId() {
