@@ -19,4 +19,27 @@ export const formsNamingEnToFr = {
   HEXAGON: 'Hexagone',
   RECTANGULAR: 'Réctangulaire',
   OVAL: 'Oval',
+  CIRCULAR: 'Circulaire',
+  OCTAGON: 'Octagone'
 };
+
+export const colorsNamingEnToFr = {
+  BLUE: "Bleu",
+  WHITE: "Blanc",
+  GRAY: "Gris",
+  WOOD: "Bois",
+  STEEL: "Acier",
+  CONCRETE: "Béton",
+  COMPOSITE: "Composite"
+};
+
+  export const materialNamingEnToFr = {
+  WOOD : "Bois",
+  BLACK : "Noir",
+  COMPOSITE : "Composite",
+  STEEL : "Acier",
+  CONCRETE : "Béton",
+  PVC : "PVC",
+  TUBULAR : "Tubulaire",
+  GRAPHITE : "Graphite"
+ }

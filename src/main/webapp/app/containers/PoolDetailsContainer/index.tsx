@@ -22,6 +22,12 @@ import {Material} from 'app/models/enumerations/material.model';
 import {Shape} from 'app/models/enumerations/shape.model';
 import {Category} from 'app/models/enumerations/category.model';
 import {selectPool} from 'app/redux/slices/poolSlice';
+import {
+  categoriesNamingEnToFr,
+  colorsNamingEnToFr,
+  formsNamingEnToFr,
+  materialNamingEnToFr
+} from "app/helpers/constants/forms";
 
 const PoolDetailsContainer: FC = () => {
   const pool = useSelector(selectPool);
@@ -51,15 +57,15 @@ const PoolDetailsContainer: FC = () => {
         <p className=" px-8 pb-7 text-justify">{pool.description}</p>
         <h3 className="px-8 py-3 font-bold bg-octonary">Détails du bien</h3>
         <div className="grid md:grid-cols-2 grid-cols-1">
-          {tableLine('Volume', pool.volume != undefined ? `${pool.shape} m3` : '-', faCube)}
-          {tableLine('Forme', pool.shape != undefined ? `${pool.shape}` : '-', faSquare)}
-          {tableLine('Couleur', pool.color != undefined ? `${pool.color}` : '-', faPalette)}
-          {tableLine('Materiel', pool.material != undefined ? `${pool.material}` : '-', faRecycle)}
+          {tableLine('Volume', pool.volume != undefined ? `${pool.volume} m3` : '-', faCube)}
+          {tableLine('Forme', pool.shape != undefined ? `${formsNamingEnToFr[pool.shape]}` : '-', faSquare)}
+          {tableLine('Couleur', pool.color != undefined ? `${colorsNamingEnToFr[pool.color]}` : '-', faPalette)}
+          {tableLine('Materiel', pool.material != undefined ? `${materialNamingEnToFr[pool.material]}` : '-', faRecycle)}
           {tableLine('Longueur', pool.width != undefined ? `${pool.width} m` : '-', faArrowsLeftRight)}
           {tableLine('Largeur', pool.length != undefined ? `${pool.length} m` : '-', faArrowsUpDown)}
           {tableLine('Profondeur', pool.height != undefined ? `${pool.height} m` : '-', faArrowDownShortWide)}
           {tableLine('Garantie', pool.warranty != undefined ? `${pool.warranty} ans` : '-', faClipboardCheck)}
-          {tableLine('Categorie', pool.category != undefined ? `${pool.category}` : '-', faLayerGroup)}
+          {tableLine('Categorie', pool.category != undefined ? `${categoriesNamingEnToFr[pool.category]}` : '-', faLayerGroup)}
           {tableLine('Marque', pool.brand != undefined ? `${pool.brand}` : '-', faCopyright)}
         </div>
       </div>

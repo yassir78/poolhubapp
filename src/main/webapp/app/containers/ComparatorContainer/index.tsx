@@ -14,6 +14,13 @@ import {
   IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import BackButton from "app/components/BackButton";
+import {
+  categoriesNamingEnToFr,
+  colorsNamingEnToFr,
+  formsNamingEnToFr,
+  materialNamingEnToFr
+} from "app/helpers/constants/forms";
 
 const ComparatorContainer = () => {
 
@@ -36,7 +43,7 @@ const ComparatorContainer = () => {
     category: Category.ONGROUND,
     brand: 'BESTWAY',
     price: 1299,
-    nbStock: 3,
+    stock: 3,
     active: true,
   }
 
@@ -58,7 +65,7 @@ const ComparatorContainer = () => {
     category: Category.SEMI_INGROUND,
     brand: 'PARIS',
     price: 700,
-    nbStock: 1,
+    stock: 0,
     active: true,
   }
 
@@ -109,22 +116,37 @@ const ComparatorContainer = () => {
     // Settings filtered values
     setFilteredImagesLabels(pools.map(pool => ({image: pool.image, label: pool.label})));
     setFilteredVolume(pools.map(pool => pool.volume !== undefined ? `${pool.volume} m3` : '-'));
-    setFilteredShape(pools.map(pool => pool.shape !== undefined ? `${pool.shape}` : '-'));
-    setFilteredColor(pools.map(pool => pool.color !== undefined ? `${pool.color}` : '-'));
-    setFilteredMaterial(pools.map(pool => pool.material !== undefined ? `${pool.material}` : '-'));
+    setFilteredShape(pools.map(pool => pool.shape !== undefined ? `${formsNamingEnToFr[pool.shape]}` : '-'));
+    setFilteredColor(pools.map(pool => pool.color !== undefined ? `${colorsNamingEnToFr[pool.color]}` : '-'));
+    setFilteredMaterial(pools.map(pool => pool.material !== undefined ? `${materialNamingEnToFr[pool.material]}` : '-'));
     setFilteredWidth(pools.map(pool => pool.width !== undefined ? `${pool.width} m` : '-'));
     setFilteredLength(pools.map(pool => pool.length !== undefined ? `${pool.length} m` : '-'));
     setFilteredHeight(pools.map(pool => pool.height !== undefined ? `${pool.height} m` : '-'));
     setFilteredWarranty(pools.map(pool => pool.warranty !== undefined ? `${pool.warranty} ans` : '-'));
-    setFilteredCategory(pools.map(pool => pool.category !== undefined ? `${pool.category}` : '-'));
+    setFilteredCategory(pools.map(pool => pool.category !== undefined ? `${categoriesNamingEnToFr[pool.category]}` : '-'));
     setFilteredBrand(pools.map(pool => pool.brand !== undefined ? `${pool.brand}` : '-'));
   }, [pools]);
 
+  const handlePoolRemove = (index:number) => {
+    // TODO : Remove pool from redux
+    setPools(currentPools =>
+      currentPools.filter((pool,i) => i !== index)
+    )
+  }
 
-  const getImageDiv = (poolLabel: string, imgSrc: string): JSX.Element => {
-    return <div className="col-span-2 px-4 pt-4">
+  const getImageDiv = (poolLabel: string, imgSrc: string,index:number): JSX.Element => {
+    console.log(index)
+    return <div className="col-span-2 relative px-4 pt-4">
+      <div onClick={(e) => handlePoolRemove(index)} className="absolute right-0 -top-2 z-50 w-10 h-10 hover:scale-105 transition-all ease-in cursor-pointer active:opacity-75">
+        <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12.5 22.5V27.5H37.5V22.5H12.5ZM25 0C11.2 0 0 11.2 0 25C0 38.8 11.2 50 25 50C38.8 50 50 38.8 50 25C50 11.2 38.8 0 25 0ZM25 45C13.975 45 5 36.025 5 25C5 13.975 13.975 5 25 5C36.025 5 45 13.975 45 25C45 36.025 36.025 45 25 45Z"
+            fill="#00ADB5"/>
+        </svg>
+      </div>
       <div className="mb-4 aspect-w-4 aspect-h-2 relative shadow-md">
-        <img className="object-cover rounded-lg w-full" src={imgSrc} alt="Pool image"/>
+        <img className="select-none object-cover rounded-lg w-full" src={imgSrc} alt="Pool image"/>
       </div>
       <h2 className="flex justify-center font-bold text-2xl text-tertiary">{poolLabel}</h2>
     </div>
@@ -155,9 +177,10 @@ const ComparatorContainer = () => {
 
   const getBuyButtons = () => {
     const rows: JSX.Element[] = [];
-    for (let i = 0; i < pools.length; i++) {
+    for (const pool of pools) {
       rows.push(<div className="col-span-2 flex justify-center align-middle">
-        <div className="px-16 py-3 bg-primary mt-5 rounded-lg font-bold text-octonary cursor-pointer select-none hover:scale-105 transition-all ease-in active:opacity-75">
+        <div
+          className={"px-16 py-3 mt-5 rounded-lg font-bold text-octonary select-none " + (pool.stock > 0 ? " bg-primary cursor-pointer hover:scale-105 transition-all ease-in active:opacity-75" : "bg-textGray")}>
           Acheter
         </div>
       </div>);
@@ -168,13 +191,19 @@ const ComparatorContainer = () => {
     </div>
   }
 
+  if (pools.length <= 0) {
+    return <div className="text-tertiary text-2xl font-bold w-full px-24 pb-[38rem] pt-10">
+      <h1 className="flex justify-center">Aucun élément dans le comparateur</h1>
+    </div>
+  }
+
   return (
     <div className="text-tertiary px-24 py-10">
-
+      <BackButton routeTo={"/"}/>
       <div className={`grid grid-flow-row grid-cols-7`}>
         <div/>
-        {filteredImagesLabels.map(imageLabel => {
-          return getImageDiv(imageLabel.label, imageLabel.image)
+        {filteredImagesLabels.map((imageLabel,index) => {
+          return getImageDiv(imageLabel.label, imageLabel.image, index)
         })}
       </div>
       <div className="shadow-md mt-8">

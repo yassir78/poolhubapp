@@ -34,7 +34,7 @@ const PurchaseContainer = () => {
     category: Category.ONGROUND,
     brand: 'BESTWAY',
     price: 1299,
-    nbStock: 3,
+    stock: 3,
     active: true,
   };
 

@@ -35,7 +35,7 @@ const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
   return (
     <div className="bg-white flex flex-col justify-between rounded-lg shadow-md px-10 pt-12 pb-6 w-full lg:w-2/5">
       <div>
-        <h3 className="text-quinary  text-3xl font-bold overflow-hidden line-clamp-2 pb-4">{pool.label}</h3>
+        <h3 className="text-quinary  text-3xl font-bold overflow-hidden line-clamp-2 pb-4 capitalize">{pool.label}</h3>
 
         <div className="flex text-xl justify-between pb-4">
           <div className="flex">
@@ -50,9 +50,15 @@ const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
         <p className="text-xl lowercase">{pool.brand}</p>
       </div>
       <div>
-        <p className="text-primary pt-10">{`Il ne reste plus que ${pool.nbStock} examplaire(s) en stock.`}</p>
+        {
+          pool.stock > 0 ? (
+            <p className="text-primary pt-10">{`Il ne reste plus que ${pool.stock} examplaire(s) en stock.`}</p>
+          ) : (
+            <p className="text-red-500 pt-10">{`Rupture de stock.`}</p>
+          )
+        }
         <div className="grid gap-8 grid-cols-2 text-white pt-5">
-          <div className="button">Acheter</div>
+          <div className={(pool.stock > 0 ? "button" : "button-disabled")}>Acheter</div>
           <div className="button">Comparer</div>
         </div>
       </div>
