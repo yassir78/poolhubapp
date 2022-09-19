@@ -12,6 +12,7 @@ public final class ErrorConstants {
     public static final URI INVALID_PASSWORD_TYPE = URI.create(PROBLEM_BASE_URL + "/invalid-password");
     public static final URI EMAIL_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/email-already-used");
     public static final URI LOGIN_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/login-already-used");
+    public static final URI OPTIMISTIC_LOCKING_FAILURE = URI.create(PROBLEM_BASE_URL + "/optimistic-locking-failure");
 
     private ErrorConstants() {}
 }

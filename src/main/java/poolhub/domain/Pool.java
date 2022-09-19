@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import poolhub.domain.enumeration.Category;
 import poolhub.domain.enumeration.Color;
@@ -60,6 +61,9 @@ public class Pool implements Serializable {
 
     @Column(name = "stock")
     private Integer stock;
+
+    @Version
+    private Integer version;
 
     @Column(name = "active")
     private Boolean active;
@@ -116,6 +120,30 @@ public class Pool implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public int getWarranty() {
+        return warranty;
+    }
+
+    public void setWarranty(int warranty) {
+        this.warranty = warranty;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getRef() {
