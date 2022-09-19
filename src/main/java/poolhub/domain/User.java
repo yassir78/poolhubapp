@@ -24,15 +24,13 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import poolhub.config.Constants;
 
 /**
  * A user.
  */
 @Entity
-@Table(name = "jhi_user")
+@Table(name = "jhi_user", schema = "public")
 public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,8 +52,7 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Column(name = "password_hash", length = 60, nullable = false)
     private String password;
 
-    @Size(min = 5, max = 600)
-    @Column(length = 254, unique = true)
+    @Column(name = "address")
     private String address;
 
     @Size(max = 50)
@@ -96,11 +93,10 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Pool> pools = new HashSet<>();
 
     @JsonIgnore
@@ -260,17 +256,17 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     }
 
     // prettier-ignore
-  @Override
-  public String toString() {
-    return "User{" +
-        "login='" + login + '\'' +
-        ", firstName='" + firstName + '\'' +
-        ", lastName='" + lastName + '\'' +
-        ", email='" + email + '\'' +
-        ", imageUrl='" + imageUrl + '\'' +
-        ", activated='" + activated + '\'' +
-        ", langKey='" + langKey + '\'' +
-        ", activationKey='" + activationKey + '\'' +
-        "}";
-  }
+    @Override
+    public String toString() {
+        return "User{" +
+            "login='" + login + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", imageUrl='" + imageUrl + '\'' +
+            ", activated='" + activated + '\'' +
+            ", langKey='" + langKey + '\'' +
+            ", activationKey='" + activationKey + '\'' +
+            "}";
+    }
 }

@@ -4,15 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -24,7 +23,7 @@ import poolhub.domain.enumeration.State;
  * A Order.
  */
 @Entity
-@Table(name = "jhi_order")
+@Table(name = "jhi_order", schema = "public")
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Order implements Serializable {
 
@@ -51,11 +50,12 @@ public class Order implements Serializable {
     private State state;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
+    @JoinColumn(name = "pool_id")
     private Pool pool;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToOne
@@ -177,14 +177,14 @@ public class Order implements Serializable {
     }
 
     // prettier-ignore
-  @Override
-  public String toString() {
-    return "Order{" +
-        "id=" + getId() +
-        ", ref='" + getRef() + "'" +
-        ", sum=" + getSum() +
-        ", date='" + getDate() + "'" +
-        ", state='" + getState() + "'" +
-        "}";
-  }
+    @Override
+    public String toString() {
+        return "Order{" +
+            "id=" + getId() +
+            ", ref='" + getRef() + "'" +
+            ", sum=" + getSum() +
+            ", date='" + getDate() + "'" +
+            ", state='" + getState() + "'" +
+            "}";
+    }
 }

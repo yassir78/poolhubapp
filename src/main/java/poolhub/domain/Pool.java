@@ -1,11 +1,9 @@
 package poolhub.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,14 +11,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import poolhub.domain.enumeration.Category;
 import poolhub.domain.enumeration.Color;
 import poolhub.domain.enumeration.Material;
@@ -30,7 +25,7 @@ import poolhub.domain.enumeration.Shape;
  * A Pool.
  */
 @Entity
-@Table(name = "jhi_pool")
+@Table(name = "jhi_pool", schema = "public")
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Pool implements Serializable {
 
@@ -64,9 +59,6 @@ public class Pool implements Serializable {
 
     @Column(name = "stock")
     private Integer stock;
-
-    @Version
-    private Integer version;
 
     @Column(name = "active")
     private Boolean active;
@@ -102,14 +94,6 @@ public class Pool implements Serializable {
     @Column(name = "category")
     private Category category;
 
-    @OneToMany(mappedBy = "pool", cascade = CascadeType.DETACH)
-    @JsonIgnoreProperties(value = { "pool" }, allowSetters = true)
-    private Set<Order> orders = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "pools" }, allowSetters = true)
-    private User user;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -125,28 +109,12 @@ public class Pool implements Serializable {
         this.id = id;
     }
 
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
     public int getWarranty() {
         return warranty;
     }
 
     public void setWarranty(int warranty) {
         this.warranty = warranty;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getRef() {
@@ -355,37 +323,6 @@ public class Pool implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Set<Order> getOrders() {
-        return this.orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        if (this.orders != null) {
-            this.orders.forEach(i -> i.setPool(null));
-        }
-        if (orders != null) {
-            orders.forEach(i -> i.setPool(this));
-        }
-        this.orders = orders;
-    }
-
-    public Pool orders(Set<Order> orders) {
-        this.setOrders(orders);
-        return this;
-    }
-
-    public Pool addOrders(Order order) {
-        this.orders.add(order);
-        order.setPool(this);
-        return this;
-    }
-
-    public Pool removeOrders(Order order) {
-        this.orders.remove(order);
-        order.setPool(null);
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
