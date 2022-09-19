@@ -43,6 +43,10 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
