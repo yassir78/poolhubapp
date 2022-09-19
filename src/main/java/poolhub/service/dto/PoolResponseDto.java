@@ -6,7 +6,7 @@ import poolhub.domain.enumeration.Color;
 import poolhub.domain.enumeration.Material;
 import poolhub.domain.enumeration.Shape;
 
-public class PoolListResponseDto {
+public class PoolResponseDto {
 
     private String ref;
 

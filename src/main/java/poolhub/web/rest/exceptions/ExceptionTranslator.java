@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.persistence.OptimisticLockException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,8 +34,8 @@ import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.web.util.HeaderUtil;
 
 /**
- * Controller advice to translate the server side exceptions to client-friendly json structures.
- * The error response follows RFC7807 - Problem Details for HTTP APIs (https://tools.ietf.org/html/rfc7807).
+ * Controller advice to translate the server side exceptions to client-friendly json structures. The
+ * error response follows RFC7807 - Problem Details for HTTP APIs (https://tools.ietf.org/html/rfc7807).
  */
 @ControllerAdvice
 public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {
@@ -135,6 +136,22 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
             problem,
             request,
             HeaderUtil.createFailureAlert(applicationName, true, problem.getEntityName(), problem.getErrorKey(), problem.getMessage())
+        );
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Problem> handleOptimisticLockException(OptimisticLockException ex, NativeWebRequest request) {
+        OptimisticFailureLockException problem = new OptimisticFailureLockException();
+        return create(
+            problem,
+            request,
+            HeaderUtil.createFailureAlert(
+                applicationName,
+                true,
+                ex.getEntity().getClass().getName(),
+                "optimisticLockingFailure",
+                ex.getMessage()
+            )
         );
     }
 

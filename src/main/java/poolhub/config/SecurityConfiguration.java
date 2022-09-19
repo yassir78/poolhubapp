@@ -90,6 +90,7 @@ public class SecurityConfiguration {
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/pool/**").permitAll()
             .antMatchers("/api/media/**").permitAll()
+            .antMatchers("/api/order/**").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/health/**").permitAll()

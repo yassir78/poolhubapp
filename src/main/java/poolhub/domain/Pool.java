@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import poolhub.domain.enumeration.Category;
 import poolhub.domain.enumeration.Color;
 import poolhub.domain.enumeration.Material;
@@ -61,6 +65,9 @@ public class Pool implements Serializable {
     @Column(name = "stock")
     private Integer stock;
 
+    @Version
+    private Integer version;
+
     @Column(name = "active")
     private Boolean active;
 
@@ -95,7 +102,7 @@ public class Pool implements Serializable {
     @Column(name = "category")
     private Category category;
 
-    @OneToMany(mappedBy = "pool")
+    @OneToMany(mappedBy = "pool", cascade = CascadeType.DETACH)
     @JsonIgnoreProperties(value = { "pool" }, allowSetters = true)
     private Set<Order> orders = new HashSet<>();
 
@@ -116,6 +123,30 @@ public class Pool implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    public int getWarranty() {
+        return warranty;
+    }
+
+    public void setWarranty(int warranty) {
+        this.warranty = warranty;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getRef() {

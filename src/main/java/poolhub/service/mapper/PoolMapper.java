@@ -1,14 +1,14 @@
 package poolhub.service.mapper;
 
 import poolhub.domain.Pool;
-import poolhub.service.dto.PoolListResponseDto;
+import poolhub.service.dto.PoolResponseDto;
 
 public class PoolMapper {
 
     private PoolMapper() {}
 
-    public static PoolListResponseDto mapToListResponse(Pool pool) {
-        PoolListResponseDto poolListResponseDto = new PoolListResponseDto();
+    public static PoolResponseDto mapToListResponse(Pool pool) {
+        PoolResponseDto poolListResponseDto = new PoolResponseDto();
         poolListResponseDto.setRef(pool.getRef());
         poolListResponseDto.setLabel(pool.getLabel());
         poolListResponseDto.setBrand(pool.getBrand());

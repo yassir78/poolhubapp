@@ -1,4 +1,4 @@
-package poolhub.web.rest;
+package poolhub.web.rest.order;
 
 import java.net.URI;
 import java.net.URISyntaxException;

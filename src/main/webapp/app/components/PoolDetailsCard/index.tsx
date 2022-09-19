@@ -1,12 +1,7 @@
 import React, { FC } from 'react';
 import { Pool } from 'app/models/pool.model';
-import { Shape } from 'app/models/enumerations/shape.model';
-import { Color } from 'app/models/enumerations/color.model';
-import { Material } from 'app/models/enumerations/material.model';
-import { Category } from 'app/models/enumerations/category.model';
 import './index.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 export interface PropsPoolDetailsCard {
   pool: Pool;
@@ -52,7 +47,9 @@ const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
       <div>
         <p className="text-primary pt-10">{`Il ne reste plus que ${pool.nbStock} examplaire(s) en stock.`}</p>
         <div className="grid gap-8 grid-cols-2 text-white pt-5">
-          <div className="button">Acheter</div>
+          <Link to={'/purchase'} className="button">
+            Acheter
+          </Link>
           <div className="button">Comparer</div>
         </div>
       </div>
