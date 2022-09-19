@@ -15,6 +15,7 @@ import { clearAuthentication, getSession } from 'app/redux/slices/authSlice';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import ComparatorPage from "app/pages/ComparatorPage";
+import ConfirmPurchasePage from "app/pages/ConfirmPurchasePage";
 
 const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
 //setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));
@@ -29,7 +30,7 @@ export const App = () => {
 
   return (
     <div>
-      {location.pathname !== '/login' && location.pathname !== '/register' && <Navbar />}
+      {location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/confirm-purchase' && <Navbar />}
       <div className="bg-octonary relative z-1 ">
         <Routes>
           <Route path="/" element={<MenuPage />} />
@@ -38,9 +39,10 @@ export const App = () => {
           <Route path="/purchase" element={<PurchasePage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/comparator" element={<ComparatorPage />} />
+          <Route path="/confirm-purchase" element={<ConfirmPurchasePage />} />
         </Routes>
       </div>
-      {location.pathname !== '/login' && location.pathname !== '/register' && <Footer />}
+      {location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/confirm-purchase' && <Footer />}
     </div>
   );
 };

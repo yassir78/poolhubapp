@@ -70,7 +70,7 @@ const ComparatorContainer = () => {
   }
 
   // list of pools, max 3
-  const [pools, setPools] = useState<Pool[]>([pool1, pool2]);
+  const [pools, setPools] = useState<Pool[]>([pool1, pool2,pool2]);
   // bestValues for the check marks
   const [bestValues, setBestValues] = useState(null);
   // Filtered values
@@ -130,22 +130,20 @@ const ComparatorContainer = () => {
   const handlePoolRemove = (index:number) => {
     // TODO : Remove pool from redux
     setPools(currentPools =>
-      currentPools.filter((pool,i) => i !== index)
+      currentPools.filter((_pool,i) => i !== index)
     )
   }
 
   const getImageDiv = (poolLabel: string, imgSrc: string,index:number): JSX.Element => {
     console.log(index)
     return <div className="col-span-2 relative px-4 pt-4">
-      <div onClick={(e) => handlePoolRemove(index)} className="absolute right-0 -top-2 z-50 w-10 h-10 hover:scale-105 transition-all ease-in cursor-pointer active:opacity-75">
-        <svg width="50" height="50" viewBox="0 0 50 50" fill="none"
+      <div className="mb-4 aspect-w-4 aspect-h-2 relative shadow-md">
+        <svg onClick={() => handlePoolRemove(index)} className="absolute $ cursor-pointer hover:opacity-75 text-red-500 top-0 left-full w-8 h-8 -translate-x-full z-20" width="50" height="50" viewBox="0 0 50 50" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12.5 22.5V27.5H37.5V22.5H12.5ZM25 0C11.2 0 0 11.2 0 25C0 38.8 11.2 50 25 50C38.8 50 50 38.8 50 25C50 11.2 38.8 0 25 0ZM25 45C13.975 45 5 36.025 5 25C5 13.975 13.975 5 25 5C36.025 5 45 13.975 45 25C45 36.025 36.025 45 25 45Z"
-            fill="#00ADB5"/>
+            fill="currentColor"/>
         </svg>
-      </div>
-      <div className="mb-4 aspect-w-4 aspect-h-2 relative shadow-md">
         <img className="select-none object-cover rounded-lg w-full" src={imgSrc} alt="Pool image"/>
       </div>
       <h2 className="flex justify-center font-bold text-2xl text-tertiary">{poolLabel}</h2>

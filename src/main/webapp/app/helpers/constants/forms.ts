@@ -26,6 +26,7 @@ export const formsNamingEnToFr = {
 export const colorsNamingEnToFr = {
   BLUE: "Bleu",
   WHITE: "Blanc",
+  BLACK: "Noir",
   GRAY: "Gris",
   WOOD: "Bois",
   STEEL: "Acier",

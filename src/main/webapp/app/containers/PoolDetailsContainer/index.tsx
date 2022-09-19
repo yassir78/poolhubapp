@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 import PoolDetailsCard from 'app/components/PoolDetailsCard';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -15,12 +15,7 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import BackButton from 'app/components/BackButton';
-import {useParams} from 'react-router-dom';
 import {useSelector} from 'react-redux';
-import {Color} from 'app/models/enumerations/color.model';
-import {Material} from 'app/models/enumerations/material.model';
-import {Shape} from 'app/models/enumerations/shape.model';
-import {Category} from 'app/models/enumerations/category.model';
 import {selectPool} from 'app/redux/slices/poolSlice';
 import {
   categoriesNamingEnToFr,
@@ -42,6 +37,8 @@ const PoolDetailsContainer: FC = () => {
       </div>
     );
   };
+
+  console.log(pool)
 
   return (
     <div className="flex relative flex-col text-tertiary gap-y-10 px-24 py-10">
