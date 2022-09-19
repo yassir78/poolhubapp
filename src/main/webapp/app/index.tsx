@@ -1,36 +1,22 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import getStore from 'app/config/store';
-import { registerLocale } from 'app/config/translation';
-import setupAxiosInterceptors from 'app/config/axios-interceptor';
-import { clearAuthentication } from 'app/shared/reducers/authentication';
-import ErrorBoundary from 'app/shared/error/error-boundary';
 import AppComponent from 'app/app';
-import { loadIcons } from 'app/config/icon-loader';
+import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from 'app/redux/store';
 
-const store = getStore();
-registerLocale(store);
-
-const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
-setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));
-
-loadIcons();
-
+/* eslint-disable */
 const rootEl = document.getElementById('root');
 const root = createRoot(rootEl);
 
 const render = Component =>
   root.render(
-    <ErrorBoundary>
-      <Provider store={store}>
-        <div>
-          <Component />
-        </div>
-      </Provider>
-    </ErrorBoundary>
+    <Provider store={store}>
+      <Router>
+        <Component />
+      </Router>
+    </Provider>
   );
 
 render(AppComponent);

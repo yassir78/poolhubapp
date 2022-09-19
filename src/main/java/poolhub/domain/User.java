@@ -6,13 +6,26 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import poolhub.config.Constants;
 
 /**
@@ -40,6 +53,10 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Size(min = 60, max = 60)
     @Column(name = "password_hash", length = 60, nullable = false)
     private String password;
+
+    @Size(min = 5, max = 600)
+    @Column(length = 254, unique = true)
+    private String address;
 
     @Size(max = 50)
     @Column(name = "first_name", length = 50)
@@ -79,6 +96,13 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Set<Order> orders = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Pool> pools = new HashSet<>();
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -88,6 +112,14 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     )
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
@@ -99,6 +131,14 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     public String getLogin() {
         return login;
+    }
+
+    public Set<Pool> getPools() {
+        return pools;
+    }
+
+    public void setPools(Set<Pool> pools) {
+        this.pools = pools;
     }
 
     // Lowercase the login before saving it in database
@@ -194,6 +234,14 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
         this.authorities = authorities;
     }
 
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -212,17 +260,17 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "User{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "User{" +
+        "login='" + login + '\'' +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", email='" + email + '\'' +
+        ", imageUrl='" + imageUrl + '\'' +
+        ", activated='" + activated + '\'' +
+        ", langKey='" + langKey + '\'' +
+        ", activationKey='" + activationKey + '\'' +
+        "}";
+  }
 }
