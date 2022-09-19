@@ -19,7 +19,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import poolhub.service.PoolService;
-import poolhub.service.dto.PoolListResponseDto;
+import poolhub.service.dto.PoolResponseDto;
 import poolhub.web.rest.pool.PoolController;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -40,7 +40,7 @@ public class PoolControllerTest {
 
     @Test
     public void findAll_should_return_list_of_identities_with_status_ok() throws Exception {
-        Page<PoolListResponseDto> poolsPage = new PageImpl<>(List.of(new PoolListResponseDto()));
+        Page<PoolResponseDto> poolsPage = new PageImpl<>(List.of(new PoolResponseDto()));
 
         when(poolService.getAllPools(anyInt(), anyInt())).thenReturn(poolsPage);
         mockMvc

@@ -7,7 +7,7 @@ const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
 export const initialState = {
   loading: false,
-  isAuthenticated: false,
+  isAuthenticated: Storage.local.get(AUTH_TOKEN_KEY),
   loginSuccess: false,
   loginError: false, // Errors returned from server side
   showModalLogin: false,

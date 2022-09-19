@@ -10,7 +10,7 @@ import poolhub.domain.enumeration.Category;
 import poolhub.domain.enumeration.Color;
 import poolhub.domain.enumeration.Material;
 import poolhub.domain.enumeration.Shape;
-import poolhub.service.dto.PoolListResponseDto;
+import poolhub.service.dto.PoolResponseDto;
 
 public class PoolMapperTest {
 
@@ -38,13 +38,13 @@ public class PoolMapperTest {
 
     @Test
     void poolToPoolListResponseDtoShouldMapOnlyNonNullPool() {
-        PoolListResponseDto poolListResponseDto = PoolMapper.mapToListResponse(pool);
+        PoolResponseDto poolListResponseDto = PoolMapper.mapToListResponse(pool);
         assertThat(poolListResponseDto).isNotNull();
     }
 
     @Test
     void poolToPoolListResponseDtoShouldMapAllFields() {
-        PoolListResponseDto poolListResponseDto = PoolMapper.mapToListResponse(pool);
+        PoolResponseDto poolListResponseDto = PoolMapper.mapToListResponse(pool);
         assertThat(poolListResponseDto.getLabel()).isEqualTo(pool.getLabel());
         assertThat(poolListResponseDto.getBrand()).isEqualTo(pool.getBrand());
         assertThat(poolListResponseDto.getDescription()).isEqualTo(pool.getDescription());

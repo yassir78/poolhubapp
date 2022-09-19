@@ -1,5 +1,6 @@
 package poolhub.repository;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 import poolhub.domain.Pool;
@@ -9,4 +10,6 @@ import poolhub.domain.Pool;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PoolRepository extends JpaRepository<Pool, Long> {}
+public interface PoolRepository extends JpaRepository<Pool, Long> {
+    Optional<Pool> findByLabel(String label);
+}

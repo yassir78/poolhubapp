@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +19,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import poolhub.domain.enumeration.Category;
 import poolhub.domain.enumeration.Color;
 import poolhub.domain.enumeration.Material;
@@ -99,7 +102,7 @@ public class Pool implements Serializable {
     @Column(name = "category")
     private Category category;
 
-    @OneToMany(mappedBy = "pool")
+    @OneToMany(mappedBy = "pool", cascade = CascadeType.DETACH)
     @JsonIgnoreProperties(value = { "pool" }, allowSetters = true)
     private Set<Order> orders = new HashSet<>();
 

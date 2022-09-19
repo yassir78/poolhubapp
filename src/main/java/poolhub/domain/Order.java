@@ -4,14 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -55,7 +58,18 @@ public class Order implements Serializable {
     @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
     private User user;
 
+    @OneToOne
+    private OrderDetails orderDetails;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public OrderDetails getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
     public Long getId() {
         return this.id;
@@ -163,14 +177,14 @@ public class Order implements Serializable {
     }
 
     // prettier-ignore
-    @Override
-    public String toString() {
-        return "Order{" +
-            "id=" + getId() +
-            ", ref='" + getRef() + "'" +
-            ", sum=" + getSum() +
-            ", date='" + getDate() + "'" +
-            ", state='" + getState() + "'" +
-            "}";
-    }
+  @Override
+  public String toString() {
+    return "Order{" +
+        "id=" + getId() +
+        ", ref='" + getRef() + "'" +
+        ", sum=" + getSum() +
+        ", date='" + getDate() + "'" +
+        ", state='" + getState() + "'" +
+        "}";
+  }
 }
