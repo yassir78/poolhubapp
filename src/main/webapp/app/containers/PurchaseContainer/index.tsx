@@ -61,6 +61,7 @@ const PurchaseContainer = () => {
       city,
     });
 
+
     reset();
     console.log('submit method ');
     window.scroll(0, 0);

@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {FC} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 
 export interface PropsBackButton {
   routeTo?: string;
@@ -17,21 +17,19 @@ const BackButton: FC<PropsBackButton> = props => {
         </g>
         <defs>
           <clipPath id="clip0_33_10">
-            <rect width="80" height="80" fill="white" transform="translate(80) rotate(90)" />
+            <rect width="80" height="80" fill="white" transform="translate(80) rotate(90)"/>
           </clipPath>
         </defs>
       </svg>
     );
   };
 
-  const buttonClasses = 'absolute cursor-pointer hover:scale-110 transition-all ease-in active:opacity-50 -left-20 top-0 z-40';
-
   return (
-    <>
-      <Link to={props.routeTo} className=" cursor-pointer  transition-all ease-in active:opacity-50  ">
+    <div>
+      <Link to={props.routeTo} className=" cursor-pointer hover:scale-110 transition-all ease-in active:opacity-50  ">
         {backArrowSvg()}
       </Link>
-    </>
+    </div>
   );
 };
 

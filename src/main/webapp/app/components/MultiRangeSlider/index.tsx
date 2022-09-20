@@ -51,7 +51,7 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
 
   return (
     <div className="flex items-center justify-between ">
-      <span className="mr-3 text-sm font-rubik">{minValue}</span>
+      <span className="mr-3 w-10 text-center text-sm font-rubik">{minValue}</span>
       <div className="my-4 w-3/4">
         <div className="slider relative h-1 rounded-md bg-gray-300">
           <div className="progress absolute h-1 bg-green-300 rounded " ref={progressRef} />
@@ -65,8 +65,15 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
             step={step}
             max={max}
             value={minValue}
-            className="range-min absolute w-full  -top-1  h-1   bg-gray-100  appearance-none pointer-events-none"
+            data-tooltip-target="tooltip-dark"
+            className="range-min absolute w-full cursor-col-resize -top-1  h-1   bg-gray-100  appearance-none pointer-events-none"
           />
+          <div id="tooltip-dark" role="tooltip"
+               className="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            {min}
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div>
+
 
           <DebounceInput
             onChange={handleMax}
@@ -76,11 +83,11 @@ const MultiRangeSlider = ({ maxValue, minValue, setMaxValue, setMinValue, min, m
             step={step}
             max={max}
             value={maxValue}
-            className="range-max absolute w-full  -top-1 h-1  bg-transparent appearance-none  pointer-events-none"
+            className="range-max cursor-col-resize absolute w-full  -top-1 h-1  bg-transparent appearance-none  pointer-events-none"
           />
         </div>
       </div>
-      <span className="ml-2 text-sm font-rubik">{maxValue}</span>
+      <span className="ml-2 text-center w-10 text-sm font-rubik">{maxValue}</span>
     </div>
   );
 };

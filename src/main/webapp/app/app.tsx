@@ -12,6 +12,8 @@ import store from 'app/redux/store';
 import { clearAuthentication, getSession } from 'app/redux/slices/authSlice';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
+import ComparatorPage from "app/pages/ComparatorPage";
+import ConfirmPurchasePage from "app/pages/ConfirmPurchasePage";
 import AuthGuard from 'app/helpers/auth';
 import RegisterPage from './pages/RegisterPage';
 import Footer from 'app/components/Footer';
@@ -29,7 +31,7 @@ export const App = () => {
 
   return (
     <div>
-      {location.pathname !== '/login' && location.pathname !== '/register' && <Navbar />}
+      {location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/confirm-purchase' && <Navbar />}
       <div className="bg-octonary relative z-1 ">
         <Routes>
           <Route path="/" element={<MenuPage />} />
@@ -44,9 +46,11 @@ export const App = () => {
             }
           />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/comparator" element={<ComparatorPage />} />
+          <Route path="/confirm-purchase" element={<ConfirmPurchasePage />} />
         </Routes>
       </div>
-      {location.pathname !== '/login' && location.pathname !== '/register' && <Footer />}
+      {location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/confirm-purchase' && <Footer />}
     </div>
   );
 };
