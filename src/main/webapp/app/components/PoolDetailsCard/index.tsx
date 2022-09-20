@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import { Pool } from 'app/models/pool.model';
 import { Shape } from 'app/models/enumerations/shape.model';
 import { Color } from 'app/models/enumerations/color.model';
@@ -7,12 +7,25 @@ import { Category } from 'app/models/enumerations/category.model';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import {useDispatch, useSelector} from "react-redux";
+import {addPoolToComparator, selectComparatorPools} from "app/redux/slices/poolSlice";
+import {PoolType} from "app/types/types";
 
 export interface PropsPoolDetailsCard {
-  pool: Pool;
+  pool: PoolType;
 }
 
 const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
+
+  const dispatch = useDispatch()
+  const comparatorPools = useSelector(selectComparatorPools);
+  const [isInComparator, setIsInComparator] = useState(false);
+
+  useEffect(() => {
+    setIsInComparator(comparatorPools.some(pl => pl.ref === pool.ref));
+  }, [comparatorPools]);
+
+
   const starSvg = () => {
     return (
       <svg className="fill-[yellow]" width="27" height="28" viewBox="0 0 27 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,6 +44,12 @@ const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
       </svg>
     );
   };
+
+  const handleAddToComparator = () => {
+    if (isInComparator) return;
+    dispatch(addPoolToComparator(pool));
+    window.scroll(0,0);
+  }
 
   return (
     <div className="bg-white flex flex-col justify-between rounded-lg shadow-md px-10 pt-12 pb-6 w-full lg:w-2/5">
@@ -59,7 +78,7 @@ const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
         }
         <div className="grid gap-8 grid-cols-2 text-white pt-5">
           <div className={(pool.stock > 0 ? "button" : "button-disabled")}>Acheter</div>
-          <div className="button">Comparer</div>
+          <div onClick={() => handleAddToComparator()} className={(isInComparator || comparatorPools.length === 3 ? "button-disabled" : "button")}>Comparer</div>
         </div>
       </div>
     </div>
