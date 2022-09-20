@@ -1116,12 +1116,12 @@
                                 </diffChangeLogFile>
                                 <driver>org.postgresql.Driver</driver>
                                 <url>
-                                    jdbc:postgresql://ec2-52-208-164-5.eu-west-1.compute.amazonaws.com:5432/d11j0qg1orrhqs
+                                    jdbc:postgresql://ec2-54-170-90-26.eu-west-1.compute.amazonaws.com:5432/d1789iiktsdrh0
                                 </url>
                                 <defaultSchemaName></defaultSchemaName>
-                                <username>lkwcurtjcxtgla</username>
+                                <username>nvinafxdhaugbd</username>
                                 <password>
-                                    d30f03d01fcd8180b3ee32d829a7b4e278397ab416b75d076f11ac8ed3aa32fe
+                                    c1044858f8f2be486010938a0870e99ab454d96c44c3a40e0221929576504e55
                                 </password>
                                 <referenceUrl>
                                     hibernate:spring:poolhub.domain?dialect=tech.jhipster.domain.util.FixedPostgreSQL10Dialect&amp;hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&amp;hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy

@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PoolPurchaseCard from 'app/components/PoolPurchaseCard';
-import { Pool } from 'app/models/pool.model';
-import { Shape } from 'app/models/enumerations/shape.model';
-import { Color } from 'app/models/enumerations/color.model';
-import { Material } from 'app/models/enumerations/material.model';
-import { Category } from 'app/models/enumerations/category.model';
 import BackButton from 'app/components/BackButton';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAccount } from 'app/redux/slices/authSlice';
+import { getErrorMessage, getIsSavingOrderFailure, getIsSavingOrderSuccess, resetOrder, saveOrder } from 'app/redux/slices/orderSlice';
+import { selectPool } from 'app/redux/slices/poolSlice';
+import Modal from 'app/components/Modal';
 
 const schema = yup
   .object({
     firstname: yup.string().required('Nom requis').min(4, 'Le nom doit être composé de 4 caractères minimum'),
     lastname: yup.string().required('Prénom requis').min(4, 'Le prénom doit être composé de 4 caractères minimum'),
-    email: yup.string().email("L'email n'est pas valid").required("L'email est requis"),
     phone: yup.string().required('Numéro de téléphone requis'),
     shippingAddress: yup
       .string()
@@ -25,6 +24,17 @@ const schema = yup
   })
   .required();
 const PurchaseContainer = () => {
+  const account = useSelector(selectAccount);
+  const pool = useSelector(selectPool);
+  const isSavingOrderFailure = useSelector(getIsSavingOrderFailure);
+  const isSavingOrderSuccess = useSelector(getIsSavingOrderSuccess);
+  const errorMessage = useSelector(getErrorMessage);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isSavingOrderSuccess) {
+      console.log('isaving order success');
+    }
+  }, [isSavingOrderSuccess]);
   const {
     register,
     handleSubmit,
@@ -36,35 +46,48 @@ const PurchaseContainer = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = data => {
+    const firstname = watch('firstname');
+    const lastname = watch('lastname');
+    const phone = watch('phone');
+    const shippingAddress = watch('shippingAddress');
+    const zipCode = watch('zipCode');
+    const city = watch('city');
+    console.log({
+      firstname,
+      lastname,
+      phone,
+      shippingAddress,
+      zipCode,
+      city,
+    });
+    // @ts-ignore
+    dispatch(
+      saveOrder({
+        firstName: firstname,
+        lastName: lastname,
+        phone: phone,
+        email: account.email,
+        shippingAddress: shippingAddress,
+        zipCode: zipCode,
+        city: city,
+        sum: pool.price,
+        pool: {
+          label: pool.label,
+        },
+      })
+    );
+    reset();
     console.log('submit method ');
     window.scroll(0, 0);
   };
-
-  const pool: Pool = {
-    id: 1,
-    ref: '1',
-    label: 'Piscine power steel',
-    description:
-      'Cette piscine tubulaire composée d\'une structure métallique clipsable "Seal & Lock system" est robuste et facile à installer, une trentaine de minutes vous suffira pour l\'installation de cette piscine.',
-    volume: 19.28,
-    shape: Shape.RECTANGULAR,
-    color: Color.WHITE,
-    material: Material.TUBULAR,
-    image:
-      'https://firebasestorage.googleapis.com/v0/b/poolhubapp-859cf.appspot.com/o/pool_test_images%2FPISCINE%20NOIR.jpg?alt=media&token=dfa2bdd9-af3d-4498-8a00-be8f51ad260c',
-    length: 2.74,
-    width: 6.4,
-    depth: 1.32,
-    warranty: 2,
-    category: Category.ONGROUND,
-    brand: 'BESTWAY',
-    price: 1299,
-    nbStock: 3,
-    active: true,
+  const handleClose = () => {
+    // @ts-ignore
+    dispatch(resetOrder());
   };
 
   return (
     <div className="bg-octonary pb-12 px-20 flex gap-8 pt-8">
+      <Modal isError={isSavingOrderFailure} messageKey={errorMessage} handleClose={handleClose} />
       <div className="px-12 py-6 relative rounded-lg bg-white text-tertiary h-fit w-9/12 shadow-md">
         <BackButton routeTo={'/'} />
         <form className="grid grid-cols-2 gap-x-4 gap-y-6 grid-flow-row">
@@ -114,16 +137,12 @@ const PurchaseContainer = () => {
               type="email"
               name="email"
               id="email"
-              {...register('email')}
-              className={`border border-gray-border
-                        focus:outline-none
-                        placeholder-textGray text-tertiary rounded-lg
-                        ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-transparent' : 'focus:border-primary'}
-                         block w-full p-3.5`}
+              disabled={true}
+              value={account.email}
+              className="border peer cursor-not-allowed	 border-gray-border focus:outline-none focus:border-primary bg-gray-200   placeholder-textGray text-tertiary rounded-lg block w-full  pr-3.5 py-3.5"
               placeholder="Votre email"
               required={true}
             />
-            {errors.email && <p className="text-red-500 text-xs mt-2 ">{errors.email.message}</p>}
           </div>
           <div>
             <label htmlFor="phone" className="block mb-3 text-lg font-medium text-tertiary">

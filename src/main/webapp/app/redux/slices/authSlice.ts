@@ -11,7 +11,7 @@ export const initialState = {
   loginSuccess: false,
   loginError: false, // Errors returned from server side
   showModalLogin: false,
-  account: {} as any,
+  account: Storage.local.get('account'),
   errorMessage: null as unknown as string, // Errors returned from server side
   redirectMessage: null as unknown as string,
   sessionHasBeenFetched: false,
@@ -136,6 +136,7 @@ export const authSlice = createSlice({
       }))
       .addCase(getAccount.fulfilled, (state, action) => {
         const isAuthenticated = action.payload && action.payload.data && action.payload.data.activated;
+        Storage.local.set('account', action.payload.data);
         return {
           ...state,
           isAuthenticated,

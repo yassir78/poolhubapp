@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import PoolDetailsCard from 'app/components/PoolDetailsCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,12 +15,7 @@ import {
   IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import BackButton from 'app/components/BackButton';
-import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Color } from 'app/models/enumerations/color.model';
-import { Material } from 'app/models/enumerations/material.model';
-import { Shape } from 'app/models/enumerations/shape.model';
-import { Category } from 'app/models/enumerations/category.model';
 import { selectPool } from 'app/redux/slices/poolSlice';
 
 const PoolDetailsContainer: FC = () => {
