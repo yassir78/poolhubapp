@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejected, Paylo
 import {defaultValue} from 'app/models/pool.model';
 import axios from 'axios';
 import {PoolInitialState, PoolType} from 'app/types/types';
+import { Storage } from 'react-jhipster';
 
 const apiUrl = 'api/pool';
 
@@ -35,6 +36,7 @@ const initialState: PoolInitialState = {
   },
   pool: null,
   comparatorPools: []
+  pool: Storage.local.get('pool'),
 };
 
 export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload, {getState}) => {
@@ -42,7 +44,7 @@ export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload
   // @ts-ignore
   const page = state.pool.pagination.pageable.pageNumber;
   // @ts-ignore
-  const requestUrl = `${apiUrl}/page/${state.pool.pagination.pageable.pageNumber}/size/6`;
+  const requestUrl = `${apiUrl}/page/${page}/size/6`;
   return axios.get(requestUrl);
 });
 export const getPoolsBySearch = createAsyncThunk('pools/fetch_pool_list_by_search', async (payload, {getState}) => {
@@ -90,6 +92,7 @@ export const poolSlice = createSlice({
     },
     setPool: (state, action) => {
       state.pool = action.payload;
+      Storage.local.set('pool', action.payload);
     },
     addPoolToComparator: (state, action: PayloadAction<PoolType>) => {
       if (state.comparatorPools.length >= 3) return;

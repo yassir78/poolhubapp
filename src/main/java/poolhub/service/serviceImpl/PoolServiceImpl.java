@@ -1,29 +1,17 @@
 package poolhub.service.serviceImpl;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Date;
-import java.util.Objects;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.transaction.annotation.Transactional;
 import poolhub.domain.Pool;
 import poolhub.repository.PoolRepository;
 import poolhub.service.PoolService;
 import poolhub.service.Utils.JpqlUtils;
-import poolhub.service.dto.PoolListResponseDto;
+import poolhub.service.dto.PoolResponseDto;
 import poolhub.service.dto.PoolSearchDto;
 import poolhub.service.mapper.PoolMapper;
 
@@ -40,7 +28,7 @@ public class PoolServiceImpl implements PoolService {
     }
 
     @Override
-    public Page<PoolListResponseDto> getAllPools(Integer page, Integer size) {
+    public Page<PoolResponseDto> getAllPools(Integer page, Integer size) {
         logger.info("Find all pools service");
         PageRequest pageRequest = PageRequest.of(page, size);
         Page<Pool> pageResult = poolRepository.findAll(pageRequest);
@@ -52,7 +40,7 @@ public class PoolServiceImpl implements PoolService {
     }
 
     @Override
-    public Page<PoolListResponseDto> findBySearchCriteria(Integer page, Integer size, PoolSearchDto poolSearchDto) {
+    public Page<PoolResponseDto> findBySearchCriteria(Integer page, Integer size, PoolSearchDto poolSearchDto) {
         String query = JpqlUtils.init(Pool.class);
         query += JpqlUtils.addCriteria("price", poolSearchDto.getPriceMin(), poolSearchDto.getPriceMax());
         query += JpqlUtils.addCriteria("volume", poolSearchDto.getVolumeMin(), poolSearchDto.getVolumeMax());
@@ -73,6 +61,4 @@ public class PoolServiceImpl implements PoolService {
             entityManager.createQuery(query, Pool.class).getResultList().size()
         );
     }
-
-
 }

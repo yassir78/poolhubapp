@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,7 @@ import poolhub.config.Constants;
  * A user.
  */
 @Entity
-@Table(name = "jhi_user")
+@Table(name = "jhi_user", schema = "public")
 public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,8 +52,7 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Column(name = "password_hash", length = 60, nullable = false)
     private String password;
 
-    @Size(min = 5, max = 600)
-    @Column(length = 254, unique = true)
+    @Column(name = "address")
     private String address;
 
     @Size(max = 50)
@@ -93,10 +93,10 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Column(name = "reset_date")
     private Instant resetDate = null;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Pool> pools = new HashSet<>();
 
     @JsonIgnore

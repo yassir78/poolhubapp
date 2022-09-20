@@ -1,15 +1,12 @@
 import React, {FC, useEffect, useState} from 'react';
 import { Pool } from 'app/models/pool.model';
-import { Shape } from 'app/models/enumerations/shape.model';
-import { Color } from 'app/models/enumerations/color.model';
-import { Material } from 'app/models/enumerations/material.model';
-import { Category } from 'app/models/enumerations/category.model';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import {useDispatch, useSelector} from "react-redux";
 import {addPoolToComparator, selectComparatorPools} from "app/redux/slices/poolSlice";
 import {PoolType} from "app/types/types";
+import { Link } from 'react-router-dom';
 
 export interface PropsPoolDetailsCard {
   pool: PoolType;
@@ -79,6 +76,7 @@ const PoolDetailsCard: FC<PropsPoolDetailsCard> = ({ pool }) => {
         <div className="grid gap-8 grid-cols-2 text-white pt-5">
           <div className={(pool.stock > 0 ? "button" : "button-disabled")}>Acheter</div>
           <div onClick={() => handleAddToComparator()} className={(isInComparator || comparatorPools.length === 3 ? "button-disabled" : "button")}>Comparer</div>
+
         </div>
       </div>
     </div>

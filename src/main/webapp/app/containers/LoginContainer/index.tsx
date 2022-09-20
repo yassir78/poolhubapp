@@ -3,11 +3,11 @@ import { PoolhubLogo } from 'app/helpers/icons/logo';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { LoginSvg } from 'app/containers/LoginContainer/loginSvg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { clearAuth, login, selectLoading, selectLoginError } from 'app/redux/slices/authSlice';
+import { clearAuth, getProtectedRoute, login, selectLoading, selectLoginError, selectLoginSuccess } from 'app/redux/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'app/components/Spinner';
 import Modal from 'app/components/Modal';
@@ -19,6 +19,7 @@ const schema = yup
   })
   .required();
 const LoginContainer = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -31,9 +32,12 @@ const LoginContainer = () => {
   });
   const dispatch = useDispatch();
   const loginError = useSelector(selectLoginError);
+  const loginSuccess = useSelector(selectLoginSuccess);
   const loading = useSelector(selectLoading);
+  const protectedRoute = useSelector(getProtectedRoute);
   const username = watch('username');
   const password = watch('password');
+
   const onSubmit = data => {
     console.log('data', data);
     console.log('onSubmit');
@@ -41,13 +45,17 @@ const LoginContainer = () => {
     // @ts-ignore
     dispatch(login(username, password, false));
     reset();
-    // TODO : redirect to next page if user credentials are valid
-    // TODO : show error message if user credentials are invalids
   };
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const handleClose = () => {
     dispatch(clearAuth());
   };
+  if (loginSuccess) {
+    console.log('loginSuccess', loginSuccess);
+    console.log('protectedRoute', protectedRoute);
+    navigate(protectedRoute);
+    //navigate(protectedRoute);
+  }
 
   return (
     <div className="h-screen flex relative">
@@ -132,7 +140,7 @@ const LoginContainer = () => {
           </button>
           <p className="pt-2 text-base font-light text-textGray flex justify-center">
             Pas encore inscrit(e) ?{' '}
-            <Link to={'/signup'} className="font-medium pl-2 text-primary hover:underline font-bold">
+            <Link to={'/register'} className="font-medium pl-2 text-primary hover:underline font-bold">
               S'inscrire
             </Link>
           </p>

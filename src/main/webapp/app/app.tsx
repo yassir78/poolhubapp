@@ -4,18 +4,19 @@ import React, { useEffect } from 'react';
 import Navbar from 'app/components/Navbar';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import MenuPage from 'app/pages/MenuPage';
-import Footer from 'app/components/Footer';
 import setupAxiosInterceptors from 'app/helpers/services/axios-interceptor';
 import PoolDetailsPage from 'app/pages/PoolDetailsPage';
 import PurchasePage from 'app/pages/PurchasePage';
 import LoginPage from 'app/pages/LoginPage';
-import RegisterPage from 'app/pages/RegisterPage';
 import store from 'app/redux/store';
 import { clearAuthentication, getSession } from 'app/redux/slices/authSlice';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import ComparatorPage from "app/pages/ComparatorPage";
 import ConfirmPurchasePage from "app/pages/ConfirmPurchasePage";
+import AuthGuard from 'app/helpers/auth';
+import RegisterPage from './pages/RegisterPage';
+import Footer from 'app/components/Footer';
 
 const actions = bindActionCreators({ clearAuthentication }, store.dispatch);
 //setupAxiosInterceptors(() => actions.clearAuthentication('login.error.unauthorized'));
@@ -36,7 +37,14 @@ export const App = () => {
           <Route path="/" element={<MenuPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/pool/:id" element={<PoolDetailsPage />} />
-          <Route path="/purchase" element={<PurchasePage />} />
+          <Route
+            path="/purchase"
+            element={
+              <AuthGuard route={'/purchase'}>
+                <PurchasePage />
+              </AuthGuard>
+            }
+          />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/comparator" element={<ComparatorPage />} />
           <Route path="/confirm-purchase" element={<ConfirmPurchasePage />} />

@@ -63,6 +63,9 @@ public class SecurityConfiguration {
             .headers()
             .contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
             .and()
+            .contentSecurityPolicy(
+                "img-src 'self' data: blob: https://firebasestorage.googleapis.com; frame-ancestors 'self'; object-src 'none';")
+            .and()
             .referrerPolicy(
                 ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
             .and()
@@ -90,6 +93,7 @@ public class SecurityConfiguration {
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/pool/**").permitAll()
             .antMatchers("/api/media/**").permitAll()
+            .antMatchers("/api/order/**").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/health/**").permitAll()

@@ -7,15 +7,16 @@ const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
 export const initialState = {
   loading: false,
-  isAuthenticated: false,
+  isAuthenticated: Storage.local.get(AUTH_TOKEN_KEY),
   loginSuccess: false,
   loginError: false, // Errors returned from server side
   showModalLogin: false,
-  account: {} as any,
+  account: Storage.local.get('account'),
   errorMessage: null as unknown as string, // Errors returned from server side
   redirectMessage: null as unknown as string,
   sessionHasBeenFetched: false,
   logoutUrl: null as unknown as string,
+  protectedRoute: Storage.local.get('protectedRoute'),
 };
 
 interface IAuthParams {
@@ -83,6 +84,9 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
   reducers: {
+    setProtectedRoute: (state, action) => {
+      state.protectedRoute = action.payload;
+    },
     logoutSession() {
       return {
         ...initialState,
@@ -132,6 +136,7 @@ export const authSlice = createSlice({
       }))
       .addCase(getAccount.fulfilled, (state, action) => {
         const isAuthenticated = action.payload && action.payload.data && action.payload.data.activated;
+        Storage.local.set('account', action.payload.data);
         return {
           ...state,
           isAuthenticated,
@@ -149,9 +154,12 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logoutSession, authError, clearAuth } = authSlice.actions;
+export const { logoutSession, authError, clearAuth, setProtectedRoute } = authSlice.actions;
 export const selectAccount = state => state.auth.account;
 export const selectLoginError = state => state.auth.loginError;
+export const selectLoginSuccess = state => state.auth.loginSuccess;
 export const selectLoading = state => state.auth.loading;
+export const isAuthenticated = state => state.auth.isAuthenticated;
+export const getProtectedRoute = state => state.auth.protectedRoute;
 
 export default authSlice.reducer;

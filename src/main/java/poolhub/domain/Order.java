@@ -11,8 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -22,7 +23,7 @@ import poolhub.domain.enumeration.State;
  * A Order.
  */
 @Entity
-@Table(name = "jhi_order")
+@Table(name = "jhi_order", schema = "public")
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Order implements Serializable {
 
@@ -49,14 +50,26 @@ public class Order implements Serializable {
     private State state;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
+    @JoinColumn(name = "pool_id")
     private Pool pool;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
+    @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne
+    private OrderDetails orderDetails;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public OrderDetails getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
     public Long getId() {
         return this.id;

@@ -1,4 +1,5 @@
 import React, {FC, useState} from 'react';
+import React, { FC } from 'react';
 import PoolDetailsCard from 'app/components/PoolDetailsCard';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -25,6 +26,8 @@ import {
   materialNamingEnToFr
 } from "app/helpers/constants/forms";
 import ModalImg from "app/components/ModalImg";
+import { useSelector } from 'react-redux';
+import { selectPool } from 'app/redux/slices/poolSlice';
 
 const PoolDetailsContainer: FC = () => {
   const pool = useSelector(selectPool);
