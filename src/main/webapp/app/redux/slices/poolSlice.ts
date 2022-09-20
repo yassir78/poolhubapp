@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit';
-import { defaultValue } from 'app/models/pool.model';
+import {createAsyncThunk, createSlice, isFulfilled, isPending, isRejected, PayloadAction} from '@reduxjs/toolkit';
+import {defaultValue} from 'app/models/pool.model';
 import axios from 'axios';
-import { PoolInitialState } from 'app/types/types';
+import {PoolInitialState, PoolType} from 'app/types/types';
 
 const apiUrl = 'api/pool';
 
@@ -34,9 +34,10 @@ const initialState: PoolInitialState = {
     },
   },
   pool: null,
+  comparatorPools: []
 };
 
-export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload, { getState }) => {
+export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload, {getState}) => {
   const state = getState();
   // @ts-ignore
   const page = state.pool.pagination.pageable.pageNumber;
@@ -44,7 +45,7 @@ export const getPools = createAsyncThunk('pools/fetch_pool_list', async (payload
   const requestUrl = `${apiUrl}/page/${state.pool.pagination.pageable.pageNumber}/size/6`;
   return axios.get(requestUrl);
 });
-export const getPoolsBySearch = createAsyncThunk('pools/fetch_pool_list_by_search', async (payload, { getState }) => {
+export const getPoolsBySearch = createAsyncThunk('pools/fetch_pool_list_by_search', async (payload, {getState}) => {
   const state = getState();
   // @ts-ignore
   const page = state.pool.pagination.pageable.pageNumber;
@@ -90,6 +91,15 @@ export const poolSlice = createSlice({
     setPool: (state, action) => {
       state.pool = action.payload;
     },
+    addPoolToComparator: (state, action: PayloadAction<PoolType>) => {
+      if (state.comparatorPools.length >= 3) return;
+      if (state.comparatorPools.some(pool => pool.ref === action.payload.ref)) return;
+      state.comparatorPools.push(action.payload)
+    },
+    removePoolIndexFromComparator: (state, action: PayloadAction<number>) => {
+      if (state.comparatorPools.length <= 0) return;
+      state.comparatorPools = state.comparatorPools.filter((_pool, i) => i !== action.payload)
+    },
   },
   extraReducers(builder) {
     builder
@@ -117,6 +127,7 @@ export const selectPoolsPagination = state => state.pool.pagination;
 export const selectPoolsSearch = state => state.pool.isPoolSearch;
 export const selectPoolsSearchOptions = state => state.pool.poolSearch;
 export const selectPool = state => state.pool.pool;
-export const { moveToPage, setPoolSearch, setPool } = poolSlice.actions;
+export const selectComparatorPools = state => state.pool.comparatorPools;
+export const {moveToPage, setPoolSearch, setPool, removePoolIndexFromComparator, addPoolToComparator} = poolSlice.actions;
 
 export default poolSlice.reducer;

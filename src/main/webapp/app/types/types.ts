@@ -31,6 +31,7 @@ export type PoolInitialState = {
   entity: any;
   pagination: PaginationType;
   pool: PoolType;
+  comparatorPools: PoolType[];
 };
 
 export type PoolSearchType = {
@@ -43,6 +44,7 @@ export type PoolSearchType = {
   volumeMax: number;
 };
 export type PoolType = {
+  ref: string,
   label: string;
   brand: string;
   description: string;
@@ -58,4 +60,5 @@ export type PoolType = {
   material: string;
   color: string;
   category: string;
+  warranty?: string;
 };
