@@ -28,7 +28,6 @@ public class PoolServiceImpl implements PoolService {
     }
 
     @Override
-    @Transactional
     public Page<PoolResponseDto> getAllPools(Integer page, Integer size) {
         logger.info("Find all pools service");
         PageRequest pageRequest = PageRequest.of(page, size);
