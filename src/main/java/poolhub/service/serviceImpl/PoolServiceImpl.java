@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import poolhub.domain.Pool;
 import poolhub.repository.PoolRepository;
 import poolhub.service.PoolService;
@@ -27,6 +28,7 @@ public class PoolServiceImpl implements PoolService {
     }
 
     @Override
+    @Transactional
     public Page<PoolResponseDto> getAllPools(Integer page, Integer size) {
         logger.info("Find all pools service");
         PageRequest pageRequest = PageRequest.of(page, size);

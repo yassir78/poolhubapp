@@ -1209,7 +1209,7 @@
                                 </configuration>
 
                             </execution>
-                            <execution>
+                            <!-- <execution>
                                 <id>webapp build test</id>
                                 <goals>
                                     <goal>npm</goal>
@@ -1220,7 +1220,7 @@
                                     <npmInheritsProxyConfigFromMaven>false
                                     </npmInheritsProxyConfigFromMaven>
                                 </configuration>
-                            </execution>
+                            </execution> -->
                             <execution>
                                 <id>webapp build prod</id>
                                 <goals>
