@@ -63,6 +63,9 @@ public class SecurityConfiguration {
             .headers()
             .contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
             .and()
+            .contentSecurityPolicy(
+                "img-src 'self' data: blob: https://firebasestorage.googleapis.com; frame-ancestors 'self'; object-src 'none';")
+            .and()
             .referrerPolicy(
                 ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
             .and()
