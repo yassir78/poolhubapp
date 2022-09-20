@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import PoolDetailsCard from 'app/components/PoolDetailsCard';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
@@ -9,6 +9,7 @@ import {
   faCopyright,
   faCube,
   faLayerGroup,
+  faMagnifyingGlassPlus,
   faPalette,
   faRecycle,
   faSquare,
@@ -23,6 +24,7 @@ import {
   formsNamingEnToFr,
   materialNamingEnToFr
 } from "app/helpers/constants/forms";
+import ModalImg from "app/components/ModalImg";
 
 const PoolDetailsContainer: FC = () => {
   const pool = useSelector(selectPool);
@@ -38,14 +40,24 @@ const PoolDetailsContainer: FC = () => {
     );
   };
 
-  console.log(pool)
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="flex relative flex-col text-tertiary gap-y-10 px-24 py-10">
       <BackButton routeTo={'/'}/>
       <div className="flex flex-col lg:flex-row gap-10">
-        <div className="aspect-w-4 lg:aspect-h-1 aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg shadow-md relative">
-          <img className="object-cover w-full rounded-lg" src={pool.image} alt="pool image"/>
+
+
+        <div
+          className="aspect-w-4 overflow-hidden lg:aspect-h-1 group aspect-h-2 w-full lg:w-3/5 bg-white rounded-lg shadow-md relative">
+
+          <img className="object-cover w-full rounded-lg" src={pool.image}/>
+          <div onClick={() => setIsModalOpen(true)}
+               className="w-full h-full cursor-pointer z-3 bg-quinary bg-opacity-25 opacity-0 group-hover:opacity-100 transition-all ease-in duration-200"></div>
+          <FontAwesomeIcon onClick={() => setIsModalOpen(true)}
+                           className="cursor-pointer absolute z-4 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 w-24 h-24 text-tertiary rotate-90 transition-all ease-in duration-200 "
+                           icon={faMagnifyingGlassPlus}/>
         </div>
         <PoolDetailsCard pool={pool}/>
       </div>
@@ -66,7 +78,10 @@ const PoolDetailsContainer: FC = () => {
           {tableLine('Marque', pool.brand != undefined ? `${pool.brand}` : '-', faCopyright)}
         </div>
       </div>
+      {isModalOpen && <ModalImg image={pool.image} handleClose={() => setIsModalOpen(false)}/>}
     </div>
+
+
   );
 };
 
