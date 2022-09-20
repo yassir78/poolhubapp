@@ -36,10 +36,6 @@ spring:
     url: jdbc:postgresql://ec2-52-208-164-5.eu-west-1.compute.amazonaws.com:5432/d11j0qg1orrhqs
     username: lkwcurtjcxtgla
     password: d30f03d01fcd8180b3ee32d829a7b4e278397ab416b75d076f11ac8ed3aa32fe
-    hikari:
-      connection-timeout: 30000
-      maximum-pool-size: 10
-      connection-test-query: true
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
