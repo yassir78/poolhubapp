@@ -7,7 +7,7 @@ const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
 export const initialState = {
   loading: false,
-  isAuthenticated: Storage.local.get(AUTH_TOKEN_KEY),
+  isAuthenticated: !!Storage.local.get(AUTH_TOKEN_KEY),
   loginSuccess: false,
   loginError: false, // Errors returned from server side
   showModalLogin: false,
@@ -135,11 +135,10 @@ export const authSlice = createSlice({
         errorMessage: action.error.message,
       }))
       .addCase(getAccount.fulfilled, (state, action) => {
-        const isAuthenticated = action.payload && action.payload.data && action.payload.data.activated;
         Storage.local.set('account', action.payload.data);
         return {
           ...state,
-          isAuthenticated,
+          isAuthenticated: true,
           loading: false,
           sessionHasBeenFetched: true,
           account: action.payload.data,

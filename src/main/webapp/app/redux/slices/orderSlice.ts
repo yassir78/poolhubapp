@@ -61,6 +61,7 @@ export const orderSlice = createSlice({
 });
 
 export const getIsSavingOrderFailure = state => state.order.isSavingOrderFailure;
+export const isSavingOrderLoading = state => state.order.loading;
 export const getErrorMessage = state => state.order.errorMessage;
 export const getIsSavingOrderSuccess = state => state.order.isSavingOrderSuccess;
 export const { resetOrder } = orderSlice.actions;

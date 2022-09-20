@@ -6,18 +6,16 @@ import { useNavigate } from 'react-router-dom';
 
 const AuthGuard = ({ route, children }) => {
   const navigate = useNavigate();
-  console.log('AuthGuard', route);
   const isAuth = useSelector(isAuthenticated);
-  console.log('AuthGuard', isAuth);
+  console.log('isAuth', isAuth);
+
   useEffect(() => {
     if (!isAuth) {
-      console.log('m not authenticated');
       Storage.local.set('protectedRoute', route);
       setProtectedRoute(route);
-      console.log('redirect to login page ');
       navigate('/login');
     }
-  }, []);
+  }, [isAuth]);
 
   return <> {children}</>;
 };

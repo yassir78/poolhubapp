@@ -6,9 +6,18 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAccount } from 'app/redux/slices/authSlice';
-import { getErrorMessage, getIsSavingOrderFailure, getIsSavingOrderSuccess, resetOrder, saveOrder } from 'app/redux/slices/orderSlice';
+import {
+  getErrorMessage,
+  getIsSavingOrderFailure,
+  getIsSavingOrderSuccess,
+  isSavingOrderLoading,
+  resetOrder,
+  saveOrder,
+} from 'app/redux/slices/orderSlice';
 import { selectPool } from 'app/redux/slices/poolSlice';
 import Modal from 'app/components/Modal';
+import { useNavigate } from 'react-router-dom';
+import Spinner from 'app/components/Spinner';
 
 const schema = yup
   .object({
@@ -26,15 +35,12 @@ const schema = yup
 const PurchaseContainer = () => {
   const account = useSelector(selectAccount);
   const pool = useSelector(selectPool);
+  const loading = useSelector(isSavingOrderLoading);
+  const navigate = useNavigate();
   const isSavingOrderFailure = useSelector(getIsSavingOrderFailure);
   const isSavingOrderSuccess = useSelector(getIsSavingOrderSuccess);
   const errorMessage = useSelector(getErrorMessage);
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (isSavingOrderSuccess) {
-      console.log('isaving order success');
-    }
-  }, [isSavingOrderSuccess]);
   const {
     register,
     handleSubmit,
@@ -45,6 +51,13 @@ const PurchaseContainer = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  useEffect(() => {
+    if (isSavingOrderSuccess) {
+      console.log('isaving order success');
+      navigate('/confirm-purchase');
+    }
+  }, [isSavingOrderSuccess]);
+
   const onSubmit = data => {
     const firstname = watch('firstname');
     const lastname = watch('lastname');
@@ -52,15 +65,23 @@ const PurchaseContainer = () => {
     const shippingAddress = watch('shippingAddress');
     const zipCode = watch('zipCode');
     const city = watch('city');
-    console.log({
-      firstname,
-      lastname,
-      phone,
-      shippingAddress,
-      zipCode,
-      city,
-    });
-
+    // @ts-ignore
+    dispatch(
+      // @ts-ignore
+      saveOrder({
+        firstName: firstname,
+        lastName: lastname,
+        phone: phone,
+        email: account.email,
+        shippingAddress: shippingAddress,
+        zipCode: zipCode,
+        sum: 12000,
+        city: city,
+        pool: {
+          label: pool.label,
+        },
+      })
+    );
 
     reset();
     console.log('submit method ');
@@ -78,6 +99,7 @@ const PurchaseContainer = () => {
         <BackButton routeTo={'/'} />
         <form className="grid grid-cols-2 gap-x-4 gap-y-6 grid-flow-row">
           <h1 className="text-xl col-span-2 font-bold leading-tight tracking-tight text-tertiary md:text-2xl">Détails</h1>
+          {loading && <Spinner />}
           <div>
             <label htmlFor="lastname" className="block mb-3 text-lg font-medium text-tertiary">
               Nom
@@ -124,7 +146,7 @@ const PurchaseContainer = () => {
               name="email"
               id="email"
               disabled={true}
-              value={account.email}
+              value={account?.email}
               className="border peer cursor-not-allowed	 border-gray-border focus:outline-none focus:border-primary bg-gray-200   placeholder-textGray text-tertiary rounded-lg block w-full  pr-3.5 py-3.5"
               placeholder="Votre email"
               required={true}
