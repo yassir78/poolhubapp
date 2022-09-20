@@ -60,22 +60,7 @@ const PurchaseContainer = () => {
       zipCode,
       city,
     });
-    // @ts-ignore
-    dispatch(
-      saveOrder({
-        firstName: firstname,
-        lastName: lastname,
-        phone: phone,
-        email: account.email,
-        shippingAddress: shippingAddress,
-        zipCode: zipCode,
-        city: city,
-        sum: pool.price,
-        pool: {
-          label: pool.label,
-        },
-      })
-    );
+
     reset();
     console.log('submit method ');
     window.scroll(0, 0);
