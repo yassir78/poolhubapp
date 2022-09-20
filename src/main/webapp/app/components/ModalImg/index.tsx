@@ -16,7 +16,7 @@ const ModalImg: FC<PropsModalImg> = ({handleClose, image}) => {
   }, [imageRef])
 
   return (
-    <div>
+    <>
       <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
       <div className="fixed inset-0 z-10 overflow-y-auto" onClick={handleClose}>
@@ -34,12 +34,12 @@ const ModalImg: FC<PropsModalImg> = ({handleClose, image}) => {
                 </g>
               </svg>
             </div>
-            <div className="mt-2">
-              <img ref={imageRef} className="hidden" src={image} id="monImage"/>
-              {imageDimensions && <Zoom className="overflow-hidden"
+            <div className="w-fit mt-2">
+              <img ref={imageRef} className="hidden" alt="hidden image" src={image} id="monImage"/>
+              {imageDimensions && <Zoom className="overflow-hidden w-fit"
                                         img={image}
-                                        zoomScale={2}
-                                        height={imageDimensions.height > 700 ? 700 : imageDimensions.height}
+                                        zoomScale={1.75}
+                                        height={imageDimensions.height > 600 ? 600 : imageDimensions.height}
                                         width={imageDimensions.width > 1400 ? 1400 : imageDimensions.width}
                                         transitionTime={0.2}
               />}
@@ -49,7 +49,7 @@ const ModalImg: FC<PropsModalImg> = ({handleClose, image}) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
