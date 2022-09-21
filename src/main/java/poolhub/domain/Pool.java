@@ -1,7 +1,5 @@
 package poolhub.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
@@ -11,10 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import poolhub.domain.enumeration.Category;
 import poolhub.domain.enumeration.Color;
@@ -32,8 +28,7 @@ public class Pool implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
@@ -47,6 +42,9 @@ public class Pool implements Serializable {
 
     @Column(name = "brand")
     private String brand;
+
+    @Version
+    private Long version;
 
     @Column(name = "description")
     private String description;
@@ -103,6 +101,14 @@ public class Pool implements Serializable {
     public Pool id(Long id) {
         this.setId(id);
         return this;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public void setId(Long id) {

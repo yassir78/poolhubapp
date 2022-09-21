@@ -61,16 +61,10 @@ public class SecurityConfiguration {
             .accessDeniedHandler(problemSupport)
             .and()
             .headers()
-            .contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
-            .and()
+            //.contentSecurityPolicy(jHipsterProperties.getSecurity().getContentSecurityPolicy())
+            //.and()
             .contentSecurityPolicy(
-                "img-src 'self' data: blob: https://firebasestorage.googleapis.com; frame-ancestors 'self'; object-src 'none';")
-            .and()
-            .referrerPolicy(
-                ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
-            .and()
-            .permissionsPolicy().policy(
-                "camera=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), sync-xhr=()")
+                "default-src * 'unsafe-inline';img-src 'self' data: blob: https://firebasestorage.googleapis.com http://localhost:8082;  frame-ancestors 'self'; object-src 'none';")
             .and()
             .frameOptions().sameOrigin()
             .and()

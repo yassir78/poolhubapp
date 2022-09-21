@@ -1,13 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { reset } from 'app/redux/slices/registerSlice';
 import { messages } from 'app/helpers/constants/messages';
-import { clearAuth } from 'app/redux/slices/authSlice';
 
-const Modal = ({ isError, messageKey, handleClose}) => {
-  const dispatch = useDispatch();
+const Modal = ({ isError, messageKey, handleClose }) => {
   const message = messages[messageKey];
-  const resetError = () => {};
   return (
     <>
       {isError ? (
@@ -63,7 +58,5 @@ const Modal = ({ isError, messageKey, handleClose}) => {
     </>
   );
 };
-
-
 
 export default Modal;

@@ -42,4 +42,11 @@ public class JpqlUtils {
         }
         return "";
     }
+
+    public static String addOrderBy(String key, String order) {
+        if (key != null && !key.isEmpty()) {
+            return " ORDER BY item." + key + " " + order;
+        }
+        return "";
+    }
 }

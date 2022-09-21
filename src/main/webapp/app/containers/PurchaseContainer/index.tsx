@@ -52,6 +52,11 @@ const PurchaseContainer = () => {
     resolver: yupResolver(schema),
   });
   useEffect(() => {
+    //@ts-ignore
+    dispatch(resetOrder());
+  }, []);
+
+  useEffect(() => {
     if (isSavingOrderSuccess) {
       console.log('isaving order success');
       navigate('/confirm-purchase');
@@ -65,6 +70,8 @@ const PurchaseContainer = () => {
     const shippingAddress = watch('shippingAddress');
     const zipCode = watch('zipCode');
     const city = watch('city');
+    console.log('poooooooooooooooooooooooooooool');
+    console.log(pool);
     // @ts-ignore
     dispatch(
       // @ts-ignore
@@ -78,7 +85,7 @@ const PurchaseContainer = () => {
         sum: 12000,
         city: city,
         pool: {
-          label: pool.label,
+          ref: pool.ref,
         },
       })
     );
@@ -112,7 +119,7 @@ const PurchaseContainer = () => {
               className={`border border-gray-border
                         focus:outline-none
                         placeholder-textGray text-tertiary rounded-lg
-                        ${errors.firstname ? 'border-red-500 focus:border-red-500 focus:ring-transparent' : 'focus:border-primary'}
+                         ${errors.firstname ? 'border-red-500 focus:border-red-500 focus:ring-transparent' : 'focus:border-primary'}
                          block w-full p-3.5`}
               placeholder="Votre nom"
             />

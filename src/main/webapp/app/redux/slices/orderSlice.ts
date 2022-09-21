@@ -39,6 +39,7 @@ export const orderSlice = createSlice({
       state.errorMessage = null;
       state.isSavingOrderFailure = false;
       state.isSavingOrderSuccess = false;
+      state.loading = false;
     },
   },
   extraReducers(builder) {

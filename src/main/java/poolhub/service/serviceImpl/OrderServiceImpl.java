@@ -3,8 +3,8 @@ package poolhub.service.serviceImpl;
 import java.util.Optional;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import poolhub.domain.Order;
-import poolhub.domain.OrderDetails;
 import poolhub.domain.Pool;
 import poolhub.domain.User;
 import poolhub.domain.enumeration.State;
@@ -37,6 +37,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void createOrder(Order order) {
         logger.info("Create order Service implementtation");
         order.setState(State.PROCESSING);
@@ -52,19 +53,28 @@ public class OrderServiceImpl implements OrderService {
         Optional
             .of(order.getPool())
             .ifPresent(pool -> {
-                Pool foundedPool = poolRepository.findByLabel(pool.getLabel()).orElseThrow(() -> new RuntimeException("Pool not found"));
-                logger.info("Pool found with label: " + foundedPool.getLabel());
-                foundedPool.setStock(foundedPool.getStock() - 1);
-                poolRepository.save(foundedPool);
+                Pool foundedPool = poolRepository.findByRef(pool.getRef()).orElseThrow(() -> new RuntimeException("Pool not found"));
+                Pool managedPool = poolRepository.findById(foundedPool.getId()).get();
+                if (foundedPool.getStock() - 1 < 0) {
+                    throw new RuntimeException("Pool not available");
+                }
+                logger.info("Pool found with label: " + managedPool.getLabel());
+                logger.info("Pool stock updated" + managedPool.getStock());
+                poolRepository.updateAddress(managedPool.getStock() - 1, managedPool.getId());
+                logger.info("Pool saved");
                 order.setPool(foundedPool);
             });
-        Optional
+        logger.info("Order saved ");
+        /* ptional
             .of(order.getOrderDetails())
             .ifPresent(orderDetails -> {
+                order.setOrderDetails(null);
+                logger.info("Order details found");
                 OrderDetails savedOrderDetails = orderDetailsRepository.save(orderDetails);
-                logger.info("order details saved successfuly " + savedOrderDetails.getId().toString());
                 order.setOrderDetails(savedOrderDetails);
-            });
+                logger.info(
+                    "order details saved successfuly " + savedOrderDetails.getId().toString());
+            });*/
         orderRepository.save(order);
     }
 }

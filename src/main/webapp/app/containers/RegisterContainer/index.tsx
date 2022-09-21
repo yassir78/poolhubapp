@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PoolhubLogo } from 'app/helpers/icons/logo';
 import { RegisterSvg } from 'app/containers/RegisterContainer/registerSvg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -19,6 +19,9 @@ import {
   isProfileImageLoading,
   isProfileImageSuccess,
   isRegisterLoading,
+  isRegisterSuccess,
+  resetImage,
+  resetRegister,
 } from 'app/redux/slices/registerSlice';
 import Modal from 'app/components/Modal';
 
@@ -38,6 +41,21 @@ const schema = yup
   })
   .required();
 const RegisterContainer = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const getIsRegisterSuccess = useSelector(isRegisterSuccess);
+  useEffect(() => {
+    dispatch(resetRegister());
+  }, []);
+
+  useEffect(() => {
+    console.log('getIsRegisterSuccess', getIsRegisterSuccess);
+    if (getIsRegisterSuccess) {
+      console.log('success');
+      navigate('/login');
+    }
+  }, [getIsRegisterSuccess]);
+
   const {
     register,
     handleSubmit,
@@ -52,7 +70,6 @@ const RegisterContainer = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const avatarInputRef = useRef(null);
-  const dispatch = useDispatch();
   const loading = useSelector(isRegisterLoading);
   const isImageLoading = useSelector(isProfileImageLoading);
   const isImageLoadingSuccess = useSelector(isProfileImageSuccess);
@@ -341,9 +358,9 @@ const RegisterContainer = () => {
           <button
             type="submit"
             onClick={handleSubmit(onSubmit)}
-            disabled={isValid || isImageLoading}
+            disabled={isImageLoading}
             className={` mr-0  w-1/3 text-white
-            ${isValid || isImageLoading ? 'bg-gray-border' : 'bg-primary'}
+            ${isImageLoading ? 'bg-gray-border' : 'bg-primary'}
            text-lg font-bold focus:outline-none font-medium rounded-lg
            bg-primary
            text-sm px-5 py-3 active:opacity-75 text-center hover:scale-105 transition-all ease-in `}

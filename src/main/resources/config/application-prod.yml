@@ -33,9 +33,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://ec2-54-170-90-26.eu-west-1.compute.amazonaws.com:5432/d1789iiktsdrh0
-    username: nvinafxdhaugbd
-    password: c1044858f8f2be486010938a0870e99ab454d96c44c3a40e0221929576504e55
+    url: jdbc:postgresql://ec2-54-246-185-161.eu-west-1.compute.amazonaws.com:5432/dbbu4d8qd4ur87
+    username: lekhjenumsywkb
+    password: 94d8cabc7b49c1268ad74f2165ce80cb33e1584ddd2c4756a015c7a71e8baf08
     driver-class-name: org.postgresql.Driver
     hikari:
       poolName: Hikari
@@ -46,6 +46,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
+      enable_lazy_load_no_trans: true
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
