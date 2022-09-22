@@ -45,12 +45,15 @@ export const registerSlice = createSlice({
   name: 'register',
   initialState: initialState as RegisterState,
   reducers: {
-    reset() {
+    resetRegister() {
       return {
         ...initialState,
         registrationSuccess: false,
         registrationFailure: false,
         errorMessage: null,
+        loading: false,
+        profileImageFailure: false,
+        profileImageLoading: false,
       };
     },
     resetImage() {
@@ -119,7 +122,7 @@ export const isProfileImageSuccess = (state: any) => state.register.profileImage
 export const isProfileImageFailure = (state: any) => state.register.profileImageFailure;
 export const getProfileImage = (state: any) => state.register.profileImage;
 
-export const { reset, resetImage } = registerSlice.actions;
+export const { resetRegister, resetImage } = registerSlice.actions;
 
 // Reducer
 export default registerSlice.reducer;

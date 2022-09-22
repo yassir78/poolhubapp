@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import poolhub.domain.Pool;
 import poolhub.repository.PoolRepository;
@@ -29,7 +30,7 @@ public class PoolServiceImpl implements PoolService {
     @Override
     public Page<PoolResponseDto> getAllPools(Integer page, Integer size) {
         logger.info("Find all pools service");
-        PageRequest pageRequest = PageRequest.of(page, size);
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
         Page<Pool> pageResult = poolRepository.findAll(pageRequest);
         return new PageImpl<>(
             pageResult.getContent().stream().map(PoolMapper::mapToListResponse).toList(),
@@ -46,6 +47,7 @@ public class PoolServiceImpl implements PoolService {
         query += JpqlUtils.addCriteria("label", poolSearchDto.getLabel(), "LIKE");
         query += JpqlUtils.addCriteria("shape", poolSearchDto.getForms());
         query += JpqlUtils.addCriteria("category", poolSearchDto.getCategories());
+        query += JpqlUtils.addOrderBy("id", "ASC");
         logger.info("Query: " + query);
         return new PageImpl<>(
             entityManager

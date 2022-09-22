@@ -7,11 +7,11 @@ const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
 
 export const initialState = {
   loading: false,
-  isAuthenticated: Storage.local.get(AUTH_TOKEN_KEY),
+  isAuthenticated: !!Storage.local.get(AUTH_TOKEN_KEY),
   loginSuccess: false,
   loginError: false, // Errors returned from server side
   showModalLogin: false,
-  account: {} as any,
+  account: Storage.local.get('account'),
   errorMessage: null as unknown as string, // Errors returned from server side
   redirectMessage: null as unknown as string,
   sessionHasBeenFetched: false,
@@ -44,7 +44,6 @@ export const login =
   async dispatch => {
     // @ts-ignore
     dispatch(clearAuthentication());
-    console.log("i'm inside the login action 😊😊");
     const result = await dispatch(authenticate({ username, password, rememberMe }));
     const response = result.payload as AxiosResponse;
     const bearerToken = response?.headers?.authorization;
@@ -135,10 +134,10 @@ export const authSlice = createSlice({
         errorMessage: action.error.message,
       }))
       .addCase(getAccount.fulfilled, (state, action) => {
-        const isAuthenticated = action.payload && action.payload.data && action.payload.data.activated;
+        Storage.local.set('account', action.payload.data);
         return {
           ...state,
-          isAuthenticated,
+          isAuthenticated: true,
           loading: false,
           sessionHasBeenFetched: true,
           account: action.payload.data,

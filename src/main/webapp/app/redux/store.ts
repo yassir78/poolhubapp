@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import poolReducer from './slices/poolSlice';
 import authReducer from './slices/authSlice';
 import registerReducer from 'app/redux/slices/registerSlice';
+import orderReducer from 'app/redux/slices/orderSlice';
 
 export default configureStore({
   reducer: {
     pool: poolReducer,
     auth: authReducer,
     register: registerReducer,
+    order: orderReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -24,6 +26,7 @@ export default configureStore({
           'authentication/get_account/fulfilled',
           'authentication/get_account/pending',
           'authentication/get_account/rejected',
+          'register/save_order/rejected',
         ],
       },
     }),

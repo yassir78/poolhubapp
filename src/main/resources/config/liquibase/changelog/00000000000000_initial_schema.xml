@@ -4,9 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="00000000000000" author="jhipster">
-        <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
-    </changeSet>
+
 
     <!--
         JHipster core tables.
@@ -20,9 +18,7 @@
             <column name="login" type="varchar(50)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_login"/>
             </column>
-            <column name="address" type="varchar(600)">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_user_address"/>
-            </column>
+            <column name="address" type="varchar(100)"/>
             <column name="password_hash" type="varchar(60)"/>
             <column name="first_name" type="varchar(50)"/>
             <column name="last_name" type="varchar(50)"/>
@@ -106,6 +102,8 @@
             usePreparedStatements="true">
             <column name="user_id" type="numeric"/>
         </loadData>
+        <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
+        <createSequence sequenceName="hibernate_sequence" startValue="20000" incrementBy="1"/>
     </changeSet>
 
     <changeSet author="jhipster" id="00000000000002" context="test">

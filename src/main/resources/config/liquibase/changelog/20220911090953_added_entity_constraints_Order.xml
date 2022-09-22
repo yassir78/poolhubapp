@@ -23,11 +23,4 @@
             referencedColumnNames="id"/>
     </changeSet>
 
-    <changeSet id="20220911090953-4" author="jhipster">
-        <addForeignKeyConstraint baseTableName="jhi_order"
-            baseColumnNames="order_details_id"
-            constraintName="fk_jhi_order_order_details_id"
-            referencedTableName="jhi_order_details"
-            referencedColumnNames="id"/>
-    </changeSet>
 </databaseChangeLog>

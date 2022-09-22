@@ -4,18 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import poolhub.domain.enumeration.State;
@@ -24,15 +21,14 @@ import poolhub.domain.enumeration.State;
  * A Order.
  */
 @Entity
-@Table(name = "jhi_order")
+@Table(name = "jhi_order", schema = "public")
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
@@ -51,25 +47,19 @@ public class Order implements Serializable {
     private State state;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
+    @JoinColumn(name = "pool_id")
     private Pool pool;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne
-    private OrderDetails orderDetails;
+    /* @OneToOne
+    @JoinColumn(name = "orderdetails_id")
+    private OrderDetails orderDetails; */
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public OrderDetails getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(OrderDetails orderDetails) {
-        this.orderDetails = orderDetails;
-    }
 
     public Long getId() {
         return this.id;
@@ -177,14 +167,14 @@ public class Order implements Serializable {
     }
 
     // prettier-ignore
-  @Override
-  public String toString() {
-    return "Order{" +
-        "id=" + getId() +
-        ", ref='" + getRef() + "'" +
-        ", sum=" + getSum() +
-        ", date='" + getDate() + "'" +
-        ", state='" + getState() + "'" +
-        "}";
-  }
+    @Override
+    public String toString() {
+        return "Order{" +
+            "id=" + getId() +
+            ", ref='" + getRef() + "'" +
+            ", sum=" + getSum() +
+            ", date='" + getDate() + "'" +
+            ", state='" + getState() + "'" +
+            "}";
+    }
 }

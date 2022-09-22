@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isFulfilled, isPending, isRejected, PayloadAction } from '@reduxjs/toolkit';
 import { defaultValue } from 'app/models/pool.model';
 import axios from 'axios';
-import { PoolInitialState } from 'app/types/types';
+import { PoolInitialState, PoolType } from 'app/types/types';
 import { Storage } from 'react-jhipster';
 
 const apiUrl = 'api/pool';
@@ -34,6 +34,7 @@ const initialState: PoolInitialState = {
       pageSize: 6,
     },
   },
+  comparatorPools: Storage.session.get('comparatorPools') ? Storage.session.get('comparatorPools') : [],
   pool: Storage.local.get('pool'),
 };
 
@@ -92,6 +93,18 @@ export const poolSlice = createSlice({
       state.pool = action.payload;
       Storage.local.set('pool', action.payload);
     },
+    addPoolToComparator: (state, action: PayloadAction<PoolType>) => {
+      if (state.comparatorPools.length >= 3) return;
+      if (state.comparatorPools.some(pool => pool.ref === action.payload.ref)) return;
+      Storage.session.set('comparatorPools', [...state.comparatorPools, action.payload]);
+      state.comparatorPools.push(action.payload);
+    },
+    removePoolIndexFromComparator: (state, action: PayloadAction<number>) => {
+      if (state.comparatorPools.length <= 0) return;
+      const newList = state.comparatorPools.filter((pool, index) => index !== action.payload);
+      Storage.local.set('comparatorPools', newList);
+      state.comparatorPools = state.comparatorPools.filter((_pool, i) => i !== action.payload);
+    },
   },
   extraReducers(builder) {
     builder
@@ -119,6 +132,7 @@ export const selectPoolsPagination = state => state.pool.pagination;
 export const selectPoolsSearch = state => state.pool.isPoolSearch;
 export const selectPoolsSearchOptions = state => state.pool.poolSearch;
 export const selectPool = state => state.pool.pool;
-export const { moveToPage, setPoolSearch, setPool } = poolSlice.actions;
+export const selectComparatorPools = state => state.pool.comparatorPools;
+export const { moveToPage, setPoolSearch, setPool, removePoolIndexFromComparator, addPoolToComparator } = poolSlice.actions;
 
 export default poolSlice.reducer;

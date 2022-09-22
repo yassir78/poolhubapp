@@ -15,6 +15,7 @@ public class OrderMapper {
         Pool pool = new Pool();
         OrderDetails orderDetails = new OrderDetails();
         pool.setLabel(createOrderDTO.getPool().getLabel());
+        pool.setRef(createOrderDTO.getPool().getRef());
         user.setEmail(createOrderDTO.getEmail());
         order.setSum(createOrderDTO.getSum());
         order.setRef(UUID.randomUUID().toString());
@@ -24,7 +25,7 @@ public class OrderMapper {
         orderDetails.setShippingAddress(createOrderDTO.getShippingAddress());
         orderDetails.setZipCode(createOrderDTO.getZipCode());
         orderDetails.setCity(createOrderDTO.getCity());
-        order.setOrderDetails(orderDetails);
+        //order.setOrderDetails(orderDetails);
         order.setUser(user);
         order.setPool(pool);
         return order;
