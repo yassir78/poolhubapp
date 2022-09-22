@@ -119,8 +119,7 @@ const RegisterContainer = () => {
   };
 
   const handleClose = () => {
-    // @ts-ignore
-    dispatch(reset());
+    dispatch(resetRegister());
   };
 
   const handleAvatarDelete = e => {
