@@ -53,7 +53,7 @@ const LoginContainer = () => {
   if (loginSuccess) {
     console.log('loginSuccess', loginSuccess);
     console.log('protectedRoute', protectedRoute);
-    navigate(protectedRoute);
+    navigate('/purchase');
     //navigate(protectedRoute);
   }
 

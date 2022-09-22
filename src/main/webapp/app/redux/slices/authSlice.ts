@@ -44,7 +44,6 @@ export const login =
   async dispatch => {
     // @ts-ignore
     dispatch(clearAuthentication());
-    console.log("i'm inside the login action 😊😊");
     const result = await dispatch(authenticate({ username, password, rememberMe }));
     const response = result.payload as AxiosResponse;
     const bearerToken = response?.headers?.authorization;
